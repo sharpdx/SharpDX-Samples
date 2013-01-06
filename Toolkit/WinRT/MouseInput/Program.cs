@@ -23,7 +23,7 @@ using System;
 namespace MouseInput.WinRT
 {
     /// <summary>
-    /// Simple SpriteBatchAndFont application using SharpDX.Toolkit.
+    /// Simple MouseInput application using SharpDX.Toolkit.
     /// </summary>
     class Program
     {
