@@ -10,3 +10,28 @@ The following samples have been ported:
 
  - XAML SurfaceImageSource DirectX interop sample
  - ... (TODO)
+
+
+## Old samples
+
+The following samples are old Windows 8 samples. They will be removed in a future release.  
+
+> Disclaimer
+> - This samples were ported quickly on Windows 8 launch and thus are not in a production quality state.
+> - The Dispose() of allocated COM objects is not always fully performed
+> - The resize event is not handled
+> - The suspend app is not handled
+> - The CommonDX cannot be considered as a framework. Do not use it for a production quality application.
+
+- D2DCustomPixelShaderEffect
+- D2DCustomVertexShaderEffect
+- D2DEffectsHelloWorld
+- D2DLightingEffects
+- MediaPlayerApp
+- MiniCube
+- MiniCubeBrushXaml
+- MiniCubeTexture
+- MiniCubeVideoTexture
+- MiniCubeXaml
+- MiniShape
+- SimpleMiniCube
