@@ -117,6 +117,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DirectCompute", "DirectComp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinMaxGPUApp", "WindowsDesktop\DirectCompute\MinMaxGPUApp\MinMaxGPUApp.csproj", "{48F1120F-3F33-4542-A696-D99BF675258E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaEngineApp", "WindowsDesktop\MediaFoundation\MediaEngineApp\MediaEngineApp.csproj", "{72370861-90C4-46C3-8B66-C0D85370659C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -445,6 +447,14 @@ Global
 		{48F1120F-3F33-4542-A696-D99BF675258E}.Win8Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48F1120F-3F33-4542-A696-D99BF675258E}.Win8Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48F1120F-3F33-4542-A696-D99BF675258E}.Win8Release|Any CPU.Build.0 = Release|Any CPU
+		{72370861-90C4-46C3-8B66-C0D85370659C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72370861-90C4-46C3-8B66-C0D85370659C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72370861-90C4-46C3-8B66-C0D85370659C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72370861-90C4-46C3-8B66-C0D85370659C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72370861-90C4-46C3-8B66-C0D85370659C}.Win8Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72370861-90C4-46C3-8B66-C0D85370659C}.Win8Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72370861-90C4-46C3-8B66-C0D85370659C}.Win8Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72370861-90C4-46C3-8B66-C0D85370659C}.Win8Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -490,5 +500,6 @@ Global
 		{ECB47EB9-EDF8-49AE-8225-AA388056FA19} = {3010221B-0CD5-4DBD-B95E-C852B6E654FA}
 		{A4BEB287-F2CF-471F-B432-A348E3680A1D} = {98758F79-6B27-4A77-A5DD-74AFDB2DA482}
 		{48F1120F-3F33-4542-A696-D99BF675258E} = {9F670CC4-1680-4967-99FB-B397024DD10A}
+		{72370861-90C4-46C3-8B66-C0D85370659C} = {BD136A46-83B6-4497-9566-1CE674F76ACB}
 	EndGlobalSection
 EndGlobal
