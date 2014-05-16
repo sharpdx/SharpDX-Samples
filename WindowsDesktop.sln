@@ -119,6 +119,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinMaxGPUApp", "WindowsDesk
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaEngineApp", "WindowsDesktop\MediaFoundation\MediaEngineApp\MediaEngineApp.csproj", "{72370861-90C4-46C3-8B66-C0D85370659C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaEngineAppVideo", "WindowsDesktop\MediaFoundation\MediaEngineAppVideo\MediaEngineAppVideo.csproj", "{232B973F-403D-41F0-BD99-8FE0ED4CBE1D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -455,6 +457,14 @@ Global
 		{72370861-90C4-46C3-8B66-C0D85370659C}.Win8Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72370861-90C4-46C3-8B66-C0D85370659C}.Win8Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72370861-90C4-46C3-8B66-C0D85370659C}.Win8Release|Any CPU.Build.0 = Release|Any CPU
+		{232B973F-403D-41F0-BD99-8FE0ED4CBE1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{232B973F-403D-41F0-BD99-8FE0ED4CBE1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{232B973F-403D-41F0-BD99-8FE0ED4CBE1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{232B973F-403D-41F0-BD99-8FE0ED4CBE1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{232B973F-403D-41F0-BD99-8FE0ED4CBE1D}.Win8Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{232B973F-403D-41F0-BD99-8FE0ED4CBE1D}.Win8Debug|Any CPU.Build.0 = Debug|Any CPU
+		{232B973F-403D-41F0-BD99-8FE0ED4CBE1D}.Win8Release|Any CPU.ActiveCfg = Release|Any CPU
+		{232B973F-403D-41F0-BD99-8FE0ED4CBE1D}.Win8Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -501,5 +511,6 @@ Global
 		{A4BEB287-F2CF-471F-B432-A348E3680A1D} = {98758F79-6B27-4A77-A5DD-74AFDB2DA482}
 		{48F1120F-3F33-4542-A696-D99BF675258E} = {9F670CC4-1680-4967-99FB-B397024DD10A}
 		{72370861-90C4-46C3-8B66-C0D85370659C} = {BD136A46-83B6-4497-9566-1CE674F76ACB}
+		{232B973F-403D-41F0-BD99-8FE0ED4CBE1D} = {BD136A46-83B6-4497-9566-1CE674F76ACB}
 	EndGlobalSection
 EndGlobal
