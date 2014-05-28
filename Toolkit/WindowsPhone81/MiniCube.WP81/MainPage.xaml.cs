@@ -14,8 +14,11 @@ namespace MiniCube.WP81
 
             NavigationCacheMode = NavigationCacheMode.Required;
 
-            _game = new MiniCubeGame();
-            _game.Run(DrawingSurface);
+            Loaded += (_, __) =>
+                      {
+                          _game = new MiniCubeGame();
+                          _game.Run(DrawingSurface);
+                      };
         }
     }
 }
