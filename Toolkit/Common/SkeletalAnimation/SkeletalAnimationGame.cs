@@ -116,15 +116,9 @@ namespace SkeletalAnimation
     public class SkeletalAnimationGame : Game
     {
         private GraphicsDeviceManager graphicsDeviceManager;
-        private SpriteBatch spriteBatch;
-        private SpriteFont arial16BMFont;
-
-        private PointerManager pointer;
 
         private Model model;
         private ModelAnimationController animationController;
-
-        private List<Model> models;
 
         private BoundingSphere modelBounds;
         private Matrix world;
@@ -140,8 +134,6 @@ namespace SkeletalAnimation
             graphicsDeviceManager = new GraphicsDeviceManager(this);
             graphicsDeviceManager.PreferredGraphicsProfile = new FeatureLevel[] { FeatureLevel.Level_9_1, };
 
-            pointer = new PointerManager(this);
-
             // Setup the relative directory to the executable directory
             // for loading contents with the ContentManager
             Content.RootDirectory = "Content";
@@ -149,38 +141,28 @@ namespace SkeletalAnimation
 
         protected override void LoadContent()
         {
-            // Load the fonts
-            arial16BMFont = Content.Load<SpriteFont>("Arial16");
-
-            // Load the model (by default the model is loaded with a BasicEffect. Use ModelContentReaderOptions to change the behavior at loading time.
-            models = new List<Model>();
+            // Load the model with a SkinnedEffectInstaller
             var options = new ModelContentReaderOptions { EffectInstaller = new SkinnedEffectInstaller(GraphicsDevice) };
 
-            //var result = ModelCompiler.CompileFromFile(@"..\..\..\..\Common\ModelRendering\Content\tiny.x", new ModelCompilerOptions());
-
-            foreach (var modelName in new[] { "Tiny" })
-            {
-                model = Content.Load<Model>(modelName, options);
+            model = Content.Load<Model>("Dude", options);
                 
-                // Enable default lighting  on model.
-                BasicEffect.EnableDefaultLighting(model, true);
+            // Enable default lighting for BasicEffect ans SkinnedEffect on model.
+            BasicEffect.EnableDefaultLighting(model, true);
 
-                model.ForEach(part =>
+            model.ForEach(part =>
+                {
+                    var effect = part.Effect as SkinnedEffect;
+                    if (effect != null)
                     {
-                        var effect = part.Effect as SkinnedEffect;
-                        if (effect != null)
-                        {
-                            effect.EnableDefaultLighting();
-                        }
-                    });
+                        effect.EnableDefaultLighting();
+                    }
+                });
 
-                models.Add(model);
+
+            if (model.Animations.Count > 0)
+            {
+                animationController = new ModelAnimationController(model, model.Animations[0]);
             }
-            model = models[0];
-            CreateAnimationController();
-
-            // Instantiate a SpriteBatch
-            spriteBatch = ToDisposeContent(new SpriteBatch(GraphicsDevice));
 
             base.LoadContent();
         }
@@ -191,23 +173,11 @@ namespace SkeletalAnimation
             base.Initialize();
         }
 
-        private void CreateAnimationController()
-        {
-            animationController = model.Animations.Count > 0 ? new ModelAnimationController(model, model.Animations[0]) : null;
-        }
-
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
-            var pointerState = pointer.GetState();
-            if (pointerState.Points.Count > 0 && pointerState.Points[0].EventType == PointerEventType.Released)
-            {
-                // Go to next model when pressing key space
-                model = models[(models.IndexOf(model) + 1) % models.Count];
-                CreateAnimationController();
-            }
-
+            // Advance the animation
             if (animationController != null)
             {
                 animationController.Update(gameTime);
@@ -231,11 +201,6 @@ namespace SkeletalAnimation
 
             // Draw the model
             model.Draw(GraphicsDevice, world, view, projection);
-
-            // Render the text
-            spriteBatch.Begin();
-            spriteBatch.DrawString(arial16BMFont, "Press the pointer to switch models...\r\nCurrent Model: " + model.Name, new Vector2(16, 16), Color.White);
-            spriteBatch.End();
 
             // Handle base.Draw
             base.Draw(gameTime);

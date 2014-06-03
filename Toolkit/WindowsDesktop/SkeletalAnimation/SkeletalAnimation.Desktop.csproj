@@ -79,12 +79,21 @@
     </ToolkitFont>
   </ItemGroup>
   <ItemGroup>
-    <ToolkitTexture Include="..\..\Common\SkeletalAnimation\Content\Tiny_skin.dds">
-      <Link>Content\Tiny_skin.dds</Link>
-    </ToolkitTexture>
-    <ToolkitModel Include="..\..\Common\SkeletalAnimation\Content\tiny.x">
-      <Link>Content\tiny.x</Link>
+    <ToolkitModel Include="..\..\Common\ModelRendering\Content\dude.fbx">
+      <Link>Content\dude.fbx</Link>
     </ToolkitModel>
+    <ToolkitTexture Include="..\..\Common\ModelRendering\Content\head.dds">
+      <Link>Content\head.dds</Link>
+    </ToolkitTexture>
+    <ToolkitTexture Include="..\..\Common\ModelRendering\Content\jacket.dds">
+      <Link>Content\jacket.dds</Link>
+    </ToolkitTexture>
+    <ToolkitTexture Include="..\..\Common\ModelRendering\Content\pants.dds">
+      <Link>Content\pants.dds</Link>
+    </ToolkitTexture>
+    <ToolkitTexture Include="..\..\Common\ModelRendering\Content\upBodyC.dds">
+      <Link>Content\upBodyC.dds</Link>
+    </ToolkitTexture>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
