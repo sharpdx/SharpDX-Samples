@@ -50,11 +50,11 @@ namespace SkeletalAnimation
             for (int i = 0; i < animation.Channels.Count; i++)
             {
                 channelMap[i] = -1;
-                foreach (var skin in model.SkinnedBones)
+                foreach (var bone in model.Bones)
                 {
-                    if (skin.Bone.Name == animation.Channels[i].BoneName)
+                    if (bone.Name == animation.Channels[i].BoneName)
                     {
-                        channelMap[i] = skin.Bone.Index;
+                        channelMap[i] = bone.Index;
                         break;
                     }
                 }
@@ -103,7 +103,7 @@ namespace SkeletalAnimation
                     var previousKeyFrame = keyFrames[nextIndex - 1];
                     var amount = (currentTime - previousKeyFrame.Time) / (nextKeyFrame.Time - previousKeyFrame.Time);
 
-                    bone.Transform = (Matrix)SrtTransform.Slerp(previousKeyFrame.Value, nextKeyFrame.Value, amount);
+                    bone.Transform = (Matrix)CompositeTransform.Slerp(previousKeyFrame.Value, nextKeyFrame.Value, amount);
                 }
             }
         }
