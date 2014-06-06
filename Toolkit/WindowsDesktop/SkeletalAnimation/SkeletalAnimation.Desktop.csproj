@@ -74,25 +74,38 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ToolkitFont Include="..\..\Common\SkeletalAnimation\Content\Arial16.xml">
-      <Link>Content\Arial16.xml</Link>
-    </ToolkitFont>
-  </ItemGroup>
-  <ItemGroup>
-    <ToolkitModel Include="..\..\Common\ModelRendering\Content\dude.fbx">
-      <Link>Content\dude.fbx</Link>
+    <ToolkitModel Include="..\..\Common\SkeletalAnimation\Content\Sintel.dae">
+      <Link>Content\Sintel.dae</Link>
     </ToolkitModel>
-    <ToolkitTexture Include="..\..\Common\ModelRendering\Content\head.dds">
-      <Link>Content\head.dds</Link>
+    <ToolkitTexture Include="..\..\Common\SkeletalAnimation\Content\Metal_d.dds">
+      <Link>Content\Metal_d.dds</Link>
     </ToolkitTexture>
-    <ToolkitTexture Include="..\..\Common\ModelRendering\Content\jacket.dds">
-      <Link>Content\jacket.dds</Link>
+    <ToolkitTexture Include="..\..\Common\SkeletalAnimation\Content\Leather_d.dds">
+      <Link>Content\Leather_d.dds</Link>
     </ToolkitTexture>
-    <ToolkitTexture Include="..\..\Common\ModelRendering\Content\pants.dds">
-      <Link>Content\pants.dds</Link>
+    <ToolkitTexture Include="..\..\Common\SkeletalAnimation\Content\Pants_d.dds">
+      <Link>Content\Pants_d.dds</Link>
     </ToolkitTexture>
-    <ToolkitTexture Include="..\..\Common\ModelRendering\Content\upBodyC.dds">
-      <Link>Content\upBodyC.dds</Link>
+    <ToolkitTexture Include="..\..\Common\SkeletalAnimation\Content\Shirt_d.dds">
+      <Link>Content\Shirt_d.dds</Link>
+    </ToolkitTexture>
+    <ToolkitTexture Include="..\..\Common\SkeletalAnimation\Content\Boots_d.dds">
+      <Link>Content\Boots_d.dds</Link>
+    </ToolkitTexture>
+	<ToolkitTexture Include="..\..\Common\SkeletalAnimation\Content\Body_d.dds">
+      <Link>Content\Body_d.dds</Link>
+    </ToolkitTexture>
+	<ToolkitTexture Include="..\..\Common\SkeletalAnimation\Content\Head_d.dds">
+      <Link>Content\Head_d.dds</Link>
+    </ToolkitTexture>	
+    <ToolkitTexture Include="..\..\Common\SkeletalAnimation\Content\Eye_d.dds">
+      <Link>Content\Eye_d.dds</Link>
+    </ToolkitTexture>
+    <ToolkitTexture Include="..\..\Common\SkeletalAnimation\Content\Mouth_d.dds">
+      <Link>Content\Mouth_d.dds</Link>
+    </ToolkitTexture>
+    <ToolkitTexture Include="..\..\Common\SkeletalAnimation\Content\Hair_d.dds">
+      <Link>Content\Hair_d.dds</Link>
     </ToolkitTexture>
   </ItemGroup>
   <ItemGroup>

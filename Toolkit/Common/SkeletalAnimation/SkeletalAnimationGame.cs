@@ -144,7 +144,7 @@ namespace SkeletalAnimation
             // Load the model with a SkinnedEffectInstaller
             var options = new ModelContentReaderOptions { EffectInstaller = new SkinnedEffectInstaller(GraphicsDevice) };
 
-            model = Content.Load<Model>("Dude", options);
+            model = Content.Load<Model>("Sintel", options);
                 
             // Enable default lighting for BasicEffect ans SkinnedEffect on model.
             BasicEffect.EnableDefaultLighting(model, true);
@@ -197,7 +197,7 @@ namespace SkeletalAnimation
         protected override void Draw(GameTime gameTime)
         {
             // Clears the screen with the Color.CornflowerBlue
-            GraphicsDevice.Clear(Color.CornflowerBlue);            
+            GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // Draw the model
             model.Draw(GraphicsDevice, world, view, projection);
