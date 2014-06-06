@@ -33,82 +33,6 @@ namespace SkeletalAnimation
     // namespace will override the Direct3D11.
     using SharpDX.Toolkit.Graphics;
 
-    public class ModelAnimationController
-    {
-        private Model model;
-        private ModelAnimation animation;
-        private float currentTime;
-        private int[] channelMap;
-
-        public ModelAnimationController(Model model, ModelAnimation animation)
-        {
-            this.model = model;
-            this.animation = animation;
-
-            channelMap = new int[animation.Channels.Count];
-
-            for (int i = 0; i < animation.Channels.Count; i++)
-            {
-                channelMap[i] = -1;
-                foreach (var bone in model.Bones)
-                {
-                    if (bone.Name == animation.Channels[i].BoneName)
-                    {
-                        channelMap[i] = bone.Index;
-                        break;
-                    }
-                }
-            }
-        }
-
-        public void Update(GameTime gameTime)
-        {
-            if (MathUtil.IsZero(animation.Duration))
-            {
-                currentTime = 0.0f;
-            }
-            else
-            {
-                currentTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                currentTime %= animation.Duration;
-            }
-
-            for (int i = 0; i < animation.Channels.Count; i++)
-            {
-                var boneIndex = channelMap[i];
-                if (boneIndex < 0)
-                {
-                    continue;
-                }
-
-                var bone = model.Bones[boneIndex];
-                var keyFrames = animation.Channels[i].KeyFrames;
-
-                int nextIndex = 0;
-                int lastIndex = keyFrames.Count - 1;
-
-                while (nextIndex < lastIndex && currentTime >= keyFrames[nextIndex].Time)
-                {
-                    nextIndex++;
-                }
-
-                var nextKeyFrame = keyFrames[nextIndex];
-
-                if (nextIndex == 0)
-                {
-                    bone.Transform = (Matrix)nextKeyFrame.Value;
-                }
-                else
-                {
-                    var previousKeyFrame = keyFrames[nextIndex - 1];
-                    var amount = (currentTime - previousKeyFrame.Time) / (nextKeyFrame.Time - previousKeyFrame.Time);
-
-                    bone.Transform = (Matrix)CompositeTransform.Slerp(previousKeyFrame.Value, nextKeyFrame.Value, amount);
-                }
-            }
-        }
-    }
-
     /// <summary>
     /// Simple SpriteBatchAndFont application using SharpDX.Toolkit.
     /// The purpose of this application is to use SpriteBatch and SpriteFont.
@@ -118,7 +42,7 @@ namespace SkeletalAnimation
         private GraphicsDeviceManager graphicsDeviceManager;
 
         private Model model;
-        private ModelAnimationController animationController;
+        private AnimationSystem animationSystem;
 
         private BoundingSphere modelBounds;
         private Matrix world;
@@ -141,6 +65,10 @@ namespace SkeletalAnimation
 
         protected override void LoadContent()
         {
+            // Setup animation system
+            animationSystem = new AnimationSystem(this);
+            GameSystems.Add(animationSystem);
+
             // Load the model with a SkinnedEffectInstaller
             var options = new ModelContentReaderOptions { EffectInstaller = new SkinnedEffectInstaller(GraphicsDevice) };
 
@@ -158,10 +86,10 @@ namespace SkeletalAnimation
                     }
                 });
 
-
+            // Start animation
             if (model.Animations.Count > 0)
             {
-                animationController = new ModelAnimationController(model, model.Animations[0]);
+                animationSystem.StartAnimation(model, model.Animations[0]);
             }
 
             base.LoadContent();
@@ -176,12 +104,6 @@ namespace SkeletalAnimation
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-
-            // Advance the animation
-            if (animationController != null)
-            {
-                animationController.Update(gameTime);
-            }
 
             // Calculate the bounds of this model
             modelBounds = model.CalculateBounds();
