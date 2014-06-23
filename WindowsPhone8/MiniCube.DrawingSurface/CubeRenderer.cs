@@ -181,10 +181,15 @@ namespace MiniTriApp
 
         public override void Render()
         {
+            _deviceContext.ClearState();
+
             _deviceContext.ClearRenderTargetView(_renderTargetview, Color.CornflowerBlue);
             _deviceContext.ClearDepthStencilView(_depthStencilView, DepthStencilClearFlags.Depth, 1.0f, 0);
 
             _deviceContext.OutputMerger.SetTargets(_depthStencilView, _renderTargetview);
+
+            var viewport = new SharpDX.ViewportF(0, 0, (float)_renderTargetSize.Width, (float)_renderTargetSize.Height);
+            _deviceContext.Rasterizer.SetViewport(viewport);
 
             _deviceContext.InputAssembler.SetVertexBuffers(0, _vertexBufferBinding);
             _deviceContext.InputAssembler.InputLayout = _vertexLayout;
