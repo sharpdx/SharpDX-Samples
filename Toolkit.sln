@@ -135,6 +135,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StreamOutParticles", "Strea
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TiledResources", "TiledResources", "{E7087786-0820-4A5D-B58C-D77A1D2F5B92}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OcclusionQuery", "OcclusionQuery", "{CBBED24D-87C1-412C-9E17-E7F0B41D9555}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcclusionQuery.Desktop", "Toolkit\WindowsDesktop\OcclusionQuery\OcclusionQuery.Desktop.csproj", "{BE9FD728-26A6-489E-B98D-4FD98657E300}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1178,6 +1182,20 @@ Global
 		{0B324ECE-A930-4CEB-9201-734DFF50677D}.Release|x86.ActiveCfg = Release|x86
 		{0B324ECE-A930-4CEB-9201-734DFF50677D}.Release|x86.Build.0 = Release|x86
 		{0B324ECE-A930-4CEB-9201-734DFF50677D}.Release|x86.Deploy.0 = Release|x86
+		{BE9FD728-26A6-489E-B98D-4FD98657E300}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE9FD728-26A6-489E-B98D-4FD98657E300}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE9FD728-26A6-489E-B98D-4FD98657E300}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{BE9FD728-26A6-489E-B98D-4FD98657E300}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{BE9FD728-26A6-489E-B98D-4FD98657E300}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{BE9FD728-26A6-489E-B98D-4FD98657E300}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BE9FD728-26A6-489E-B98D-4FD98657E300}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BE9FD728-26A6-489E-B98D-4FD98657E300}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE9FD728-26A6-489E-B98D-4FD98657E300}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE9FD728-26A6-489E-B98D-4FD98657E300}.Release|ARM.ActiveCfg = Release|Any CPU
+		{BE9FD728-26A6-489E-B98D-4FD98657E300}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{BE9FD728-26A6-489E-B98D-4FD98657E300}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{BE9FD728-26A6-489E-B98D-4FD98657E300}.Release|x64.ActiveCfg = Release|Any CPU
+		{BE9FD728-26A6-489E-B98D-4FD98657E300}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1232,5 +1250,6 @@ Global
 		{D6077DA0-B588-450C-B722-8342826F3C43} = {65FAC258-41CA-47FC-B174-AF26BA31AD88}
 		{C2F4BF63-D33F-4052-804C-A5D4AC208D29} = {E39ED03E-636B-412F-B744-693BB9144CA5}
 		{0B324ECE-A930-4CEB-9201-734DFF50677D} = {E39ED03E-636B-412F-B744-693BB9144CA5}
+		{BE9FD728-26A6-489E-B98D-4FD98657E300} = {CBBED24D-87C1-412C-9E17-E7F0B41D9555}
 	EndGlobalSection
 EndGlobal
