@@ -50,11 +50,12 @@ namespace CommonDX
         /// </summary>
         /// <param name="pixelWidth">Width of the target in pixels</param>
         /// <param name="pixelHeight">Height of the target in pixels</param>
-        public SurfaceImageSourceTarget(int pixelWidth, int pixelHeight, bool supportOpacity = false)
+        /// <param name="isOpaque">Indicates whether the surface is expected to be always opaque (without transparency support).</param>
+        public SurfaceImageSourceTarget(int pixelWidth, int pixelHeight, bool isOpaque = false)
         {
             this.pixelWidth = pixelWidth;
             this.pixelHeight = pixelHeight;
-            this.surfaceImageSource = new SurfaceImageSource(pixelWidth, pixelHeight, supportOpacity);
+            this.surfaceImageSource = new SurfaceImageSource(pixelWidth, pixelHeight, isOpaque);
             surfaceImageSourceNative = ToDispose(ComObject.As<SharpDX.DXGI.ISurfaceImageSourceNative>(surfaceImageSource));
             viewDatas[0] = ToDispose(new SurfaceViewData());
             viewDatas[1] = ToDispose(new SurfaceViewData());
