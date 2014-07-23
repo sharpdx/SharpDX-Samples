@@ -44,10 +44,11 @@ namespace MiniTriApp
                 CreateDeviceResources();
                 isNewDevice = true;
             }
-            _deviceContext.ClearState();
-
+            
             _deviceContext = context;
             _renderTargetview = renderTargetView;
+
+            _deviceContext.ClearState();
 
             CreateWindowSizeDependentResources(isNewDevice);
         }
