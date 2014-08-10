@@ -18,6 +18,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+using System.Collections.Generic;
+using System.Linq;
 using SharpDX;
 using SharpDX.Toolkit;
 
@@ -40,6 +42,7 @@ namespace MouseInput
         private SpriteBatch spriteBatch;
         private SpriteFont arial16BMFont;
         private MouseState mouseState;
+        private float totalWheelDelta;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SpriteBatchAndFontGame" /> class.
@@ -108,6 +111,9 @@ namespace MouseInput
             sb.AppendFormat("X            : {0}\n", mouseState.X);
             sb.AppendFormat("Y            : {0}\n", mouseState.Y);
 
+            sb.AppendFormat("DeltaX       : {0}\n", mouseState.DeltaX);
+            sb.AppendFormat("DeltaY       : {0}\n", mouseState.DeltaY);
+
             // compute mouse position in screen coordinates
             var backbuffer = GraphicsDevice.BackBuffer;
             var screenWidth = backbuffer.Width;
@@ -116,7 +122,8 @@ namespace MouseInput
             sb.AppendFormat("Screen X     : {0}\n", mouseState.X * screenWidth);
             sb.AppendFormat("Screen Y     : {0}\n", mouseState.Y * screenHeight);
 
-            sb.AppendFormat("Wheel        : {0}\n", mouseState.WheelDelta);
+            totalWheelDelta += mouseState.WheelDelta;
+            sb.AppendFormat("Wheel        : {0} (Total: {1})\n", mouseState.WheelDelta, totalWheelDelta);
 
             // Render the text
             spriteBatch.Begin();
@@ -129,10 +136,10 @@ namespace MouseInput
 
         protected override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
+
             // read the current mouse state
             mouseState = mouseManager.GetState();
-
-            base.Update(gameTime);
         }
     }
 }
