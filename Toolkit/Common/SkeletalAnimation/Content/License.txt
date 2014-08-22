@@ -1,0 +1,5 @@
+Assets are based on the Durian Open Movie project
+© copyright Blender Foundation | http://www.sintel.org
+
+Licensed under the Creative Commons Attribution 3.0 (CC BY 3.0)
+http://creativecommons.org/licenses/by/3.0/
