@@ -59,11 +59,11 @@ namespace XGamepadApp
 
                 // Poll events from joystick
                 var previousState = controller.GetState();
-                while (controller.IsConnected && IsKeyPressed(ConsoleKey.Escape))
+                while (controller.IsConnected && !IsKeyPressed(ConsoleKey.Escape))
                 {
                     var state = controller.GetState();
                     if (previousState.PacketNumber != state.PacketNumber)
-                        Console.WriteLine(state);
+                        Console.WriteLine(state.Gamepad);
                     Thread.Sleep(10);
                 }
             }
