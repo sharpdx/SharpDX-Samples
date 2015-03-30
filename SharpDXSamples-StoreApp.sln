@@ -1,0 +1,42 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31010.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XAML SurfaceImageSource DirectX interop sample", "XAML SurfaceImageSource DirectX interop sample", "{8DD66866-8B5C-4477-B11B-5246C75E47F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scenario1Component", "StoreApp\XAML SurfaceImageSource DirectX interop sample\C#\Scenario1Component\Scenario1Component.csproj", "{A98E21E7-F972-4284-B151-D35E9F3A2D9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scenario2Component", "StoreApp\XAML SurfaceImageSource DirectX interop sample\C#\Scenario2Component\Scenario2Component.csproj", "{47F7619B-E641-4D80-8167-DAED43E66C86}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurfaceImageSource", "StoreApp\XAML SurfaceImageSource DirectX interop sample\C#\SurfaceImageSource\SurfaceImageSource.csproj", "{CF1CD0D5-BF6B-457A-9927-8079FC667CA4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A98E21E7-F972-4284-B151-D35E9F3A2D9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A98E21E7-F972-4284-B151-D35E9F3A2D9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A98E21E7-F972-4284-B151-D35E9F3A2D9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A98E21E7-F972-4284-B151-D35E9F3A2D9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47F7619B-E641-4D80-8167-DAED43E66C86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47F7619B-E641-4D80-8167-DAED43E66C86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47F7619B-E641-4D80-8167-DAED43E66C86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47F7619B-E641-4D80-8167-DAED43E66C86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF1CD0D5-BF6B-457A-9927-8079FC667CA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF1CD0D5-BF6B-457A-9927-8079FC667CA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF1CD0D5-BF6B-457A-9927-8079FC667CA4}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{CF1CD0D5-BF6B-457A-9927-8079FC667CA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF1CD0D5-BF6B-457A-9927-8079FC667CA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF1CD0D5-BF6B-457A-9927-8079FC667CA4}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A98E21E7-F972-4284-B151-D35E9F3A2D9E} = {8DD66866-8B5C-4477-B11B-5246C75E47F6}
+		{47F7619B-E641-4D80-8167-DAED43E66C86} = {8DD66866-8B5C-4477-B11B-5246C75E47F6}
+		{CF1CD0D5-BF6B-457A-9927-8079FC667CA4} = {8DD66866-8B5C-4477-B11B-5246C75E47F6}
+	EndGlobalSection
+EndGlobal
