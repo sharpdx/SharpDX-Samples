@@ -27,11 +27,13 @@ using CommonDX;
 using SharpDX;
 using SharpDX.Direct2D1;
 using SharpDX.DirectWrite;
-using Matrix = SharpDX.Matrix;
+using SharpDX.Mathematics;
+using SharpDX.Mathematics.Interop;
+using Matrix = SharpDX.Mathematics.Matrix;
 
 namespace D2DCustomPixelShaderEffect
 {
-    public class EffectRenderer : Component
+    public class EffectRenderer
     {
         private DeviceManager _deviceManager;
         private SharpDX.WIC.FormatConverter _formatConverter;
@@ -187,7 +189,7 @@ namespace D2DCustomPixelShaderEffect
         {
 
             PointsAt = new Vector3(x, y, 0);
-            _rippleEffect.SetValue((int)RippleProperties.Center, new Vector2(x, y));
+            _rippleEffect.SetValue((int)RippleProperties.Center, (RawVector2)new Vector2(x, y));
         }
 
         private bool pointerPressed = false;

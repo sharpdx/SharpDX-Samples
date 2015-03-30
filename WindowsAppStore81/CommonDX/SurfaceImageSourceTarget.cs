@@ -42,7 +42,7 @@ namespace CommonDX
         private SurfaceImageSource surfaceImageSource;
         private ISurfaceImageSourceNative surfaceImageSourceNative;
         private readonly SurfaceViewData[] viewDatas = new SurfaceViewData[2];
-        private SharpDX.Point position;
+        private SharpDX.Mathematics.Point position;
         private int nextViewDataIndex;
 
         /// <summary>
@@ -56,9 +56,9 @@ namespace CommonDX
             this.pixelWidth = pixelWidth;
             this.pixelHeight = pixelHeight;
             this.surfaceImageSource = new SurfaceImageSource(pixelWidth, pixelHeight, isOpaque);
-            surfaceImageSourceNative = ToDispose(ComObject.As<SharpDX.DXGI.ISurfaceImageSourceNative>(surfaceImageSource));
-            viewDatas[0] = ToDispose(new SurfaceViewData());
-            viewDatas[1] = ToDispose(new SurfaceViewData());
+            surfaceImageSourceNative = ComObject.As<SharpDX.DXGI.ISurfaceImageSourceNative>(surfaceImageSource);
+            viewDatas[0] = new SurfaceViewData();
+            viewDatas[1] = new SurfaceViewData();
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace CommonDX
         public override void Initialize(DeviceManager deviceManager)
         {
             base.Initialize(deviceManager);
-            surfaceImageSourceNative.Device = ToDispose(DeviceManager.DeviceDirect3D.QueryInterface<SharpDX.DXGI.Device>());
+            surfaceImageSourceNative.Device = DeviceManager.DeviceDirect3D.QueryInterface<SharpDX.DXGI.Device>();
         }
 
         /// <inveritdoc/>
@@ -90,19 +90,22 @@ namespace CommonDX
         /// <summary>
         /// Gets the relative position to use to draw on the surface.
         /// </summary>
-        public SharpDX.Point DrawingPosition { get { return position; } }
+        public SharpDX.Mathematics.Point DrawingPosition { get { return position; } }
 
         /// <inveritdoc/>
         public override void RenderAll()
         {
             SurfaceViewData viewData = null;
 
-            var regionToDraw = new SharpDX.Rectangle(0, 0, pixelWidth, pixelHeight);
+            var regionToDraw = new SharpDX.Mathematics.Rectangle(0, 0, pixelWidth, pixelHeight);
 
+            SharpDX.Mathematics.Interop.RawPoint rawPosition;
             // Unlike other targets, we can only get the DXGI surface to render to
             // just before rendering.
-            using (var surface = surfaceImageSourceNative.BeginDraw(regionToDraw, out position))
+            using (var surface = surfaceImageSourceNative.BeginDraw(regionToDraw, out rawPosition))
             {
+                position = rawPosition;
+
                 // Cache DXGI surface in order to avoid recreate all render target view, depth stencil...etc.
                 // Is it the right way to do it?
                 // It seems that ISurfaceImageSourceNative.BeginDraw is returning 2 different DXGI surfaces (when the application is in foreground)
@@ -164,7 +167,7 @@ namespace CommonDX
                     viewData.BitmapTarget = new SharpDX.Direct2D1.Bitmap1(DeviceManager.ContextDirect2D, surface, bitmapProperties);
 
                     // Create a viewport descriptor of the full window size.
-                    viewData.Viewport = new SharpDX.ViewportF(position.X, position.Y, (float)viewData.RenderTargetSize.Width - position.X, (float)viewData.RenderTargetSize.Height - position.Y, 0.0f, 1.0f);
+                    viewData.Viewport = new SharpDX.Mathematics.ViewportF(position.X, position.Y, (float)viewData.RenderTargetSize.Width - position.X, (float)viewData.RenderTargetSize.Height - position.Y, 0.0f, 1.0f);
                 }
 
                 backBuffer = viewData.BackBuffer;
@@ -195,7 +198,7 @@ namespace CommonDX
             public SharpDX.Direct3D11.RenderTargetView RenderTargetView;
             public SharpDX.Direct3D11.DepthStencilView DepthStencilView;
             public SharpDX.Direct2D1.Bitmap1 BitmapTarget;
-            public SharpDX.ViewportF Viewport;
+            public SharpDX.Mathematics.ViewportF Viewport;
             public Size RenderTargetSize;
 
             public void Dispose()

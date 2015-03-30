@@ -110,10 +110,10 @@ namespace CommonDX
             var d2dContext = DeviceManager.ContextDirect2D;
 
             d2dContext.Target = null;
-            RemoveAndDispose(ref renderTargetView);
-            RemoveAndDispose(ref depthStencilView);
-            RemoveAndDispose(ref bitmapTarget);
-            RemoveAndDispose(ref backBuffer);
+            Utilities.Dispose(ref renderTargetView);
+            Utilities.Dispose(ref depthStencilView);
+            Utilities.Dispose(ref bitmapTarget);
+            Utilities.Dispose(ref backBuffer);
 
             // If the swap chain already exists, resize it.
             if (swapChain != null)
@@ -134,7 +134,7 @@ namespace CommonDX
                 using (var dxgiAdapter = dxgiDevice2.Adapter)
                 using (var dxgiFactory2 = dxgiAdapter.GetParent<SharpDX.DXGI.Factory2>())
                 {
-                    swapChain = ToDispose(CreateSwapChain(dxgiFactory2, d3dDevice, desc));
+                    swapChain = CreateSwapChain(dxgiFactory2, d3dDevice, desc);
 
                     // Ensure that DXGI does not queue more than one frame at a time. This both reduces 
                     // latency and ensures that the application will only render after each VSync, minimizing 
@@ -144,10 +144,10 @@ namespace CommonDX
             }
 
             // Obtain the backbuffer for this window which will be the final 3D rendertarget.
-            backBuffer = ToDispose(SharpDX.Direct3D11.Texture2D.FromSwapChain<SharpDX.Direct3D11.Texture2D>(swapChain, 0));
+            backBuffer = SharpDX.Direct3D11.Texture2D.FromSwapChain<SharpDX.Direct3D11.Texture2D>(swapChain, 0);
             {
                 // Create a view interface on the rendertarget to use on bind.
-                renderTargetView = ToDispose(new SharpDX.Direct3D11.RenderTargetView(d3dDevice, BackBuffer));
+                renderTargetView = new SharpDX.Direct3D11.RenderTargetView(d3dDevice, BackBuffer);
 
                 // Cache the rendertarget dimensions in our helper class for convenient use.
                 var backBufferDesc = BackBuffer.Description;
@@ -167,10 +167,10 @@ namespace CommonDX
                 SampleDescription = new SharpDX.DXGI.SampleDescription(1, 0),
                 BindFlags = SharpDX.Direct3D11.BindFlags.DepthStencil,
             }))
-                depthStencilView = ToDispose(new SharpDX.Direct3D11.DepthStencilView(d3dDevice, depthBuffer, new SharpDX.Direct3D11.DepthStencilViewDescription() { Dimension = SharpDX.Direct3D11.DepthStencilViewDimension.Texture2D }));
+                depthStencilView = new SharpDX.Direct3D11.DepthStencilView(d3dDevice, depthBuffer, new SharpDX.Direct3D11.DepthStencilViewDescription() { Dimension = SharpDX.Direct3D11.DepthStencilViewDimension.Texture2D });
 
             // Create a viewport descriptor of the full window size.
-            var viewport = new SharpDX.ViewportF((float)RenderTargetBounds.X, (float)RenderTargetBounds.Y, (float)RenderTargetBounds.Width, (float)RenderTargetBounds.Height, 0.0f, 1.0f);
+            var viewport = new SharpDX.Mathematics.ViewportF((float)RenderTargetBounds.X, (float)RenderTargetBounds.Y, (float)RenderTargetBounds.Width, (float)RenderTargetBounds.Height, 0.0f, 1.0f);
 
             // Set the current viewport using the descriptor.
             d3dContext.Rasterizer.SetViewport(viewport);
@@ -187,7 +187,7 @@ namespace CommonDX
             // Direct2D needs the dxgi version of the backbuffer surface pointer.
             // Get a D2D surface from the DXGI back buffer to use as the D2D render target.
             using (var dxgiBackBuffer = swapChain.GetBackBuffer<SharpDX.DXGI.Surface>(0))
-                bitmapTarget = ToDispose(new SharpDX.Direct2D1.Bitmap1(d2dContext, dxgiBackBuffer, bitmapProperties));
+                bitmapTarget = new SharpDX.Direct2D1.Bitmap1(d2dContext, dxgiBackBuffer, bitmapProperties);
 
             // So now we can set the Direct2D render target.
             d2dContext.Target = BitmapTarget2D;

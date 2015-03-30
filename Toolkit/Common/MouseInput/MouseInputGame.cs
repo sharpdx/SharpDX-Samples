@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-using System.Collections.Generic;
+using System;
 using System.Linq;
 using SharpDX;
 using SharpDX.Toolkit;
@@ -140,6 +140,11 @@ namespace MouseInput
 
             // read the current mouse state
             mouseState = mouseManager.GetState();
+
+            if (mouseState.DeltaX != 0 || mouseState.DeltaY != 0)
+            {
+                Console.WriteLine("MouseState {0} {1}", mouseState.DeltaX, mouseState.DeltaY);
+            }
         }
     }
 }

@@ -41,7 +41,7 @@ namespace CommonDX
     /// Initialization and Rendering is event driven based, allowing a better
     /// reuse of different components.
     /// </remarks>
-    public abstract class TargetBase : Component
+    public abstract class TargetBase
     {
         protected SharpDX.Direct3D11.RenderTargetView renderTargetView;
         protected SharpDX.Direct3D11.DepthStencilView depthStencilView;

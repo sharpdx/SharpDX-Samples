@@ -42,7 +42,7 @@ namespace CommonDX
     /// Initialization and Rendering is event driven based, allowing a better
     /// reuse of different components.
     /// </remarks>
-    public class DeviceManager : Component
+    public class DeviceManager
     {
         // Declare Direct2D Objects
         protected SharpDX.Direct2D1.Factory1           d2dFactory;
@@ -132,14 +132,14 @@ namespace CommonDX
             var debugLevel = SharpDX.Direct2D1.DebugLevel.None;
 #endif
             // Dispose previous references and set to null
-            RemoveAndDispose(ref d2dFactory);
-            RemoveAndDispose(ref dwriteFactory);
-            RemoveAndDispose(ref wicFactory);
+            Utilities.Dispose(ref d2dFactory);
+            Utilities.Dispose(ref dwriteFactory);
+            Utilities.Dispose(ref wicFactory);
 
             // Allocate new references
-            d2dFactory = ToDispose(new SharpDX.Direct2D1.Factory1(SharpDX.Direct2D1.FactoryType.SingleThreaded, debugLevel));
-            dwriteFactory = ToDispose(new SharpDX.DirectWrite.Factory(SharpDX.DirectWrite.FactoryType.Shared));
-            wicFactory = ToDispose(new SharpDX.WIC.ImagingFactory2());
+            d2dFactory = new SharpDX.Direct2D1.Factory1(SharpDX.Direct2D1.FactoryType.SingleThreaded, debugLevel);
+            dwriteFactory = new SharpDX.DirectWrite.Factory(SharpDX.DirectWrite.FactoryType.Shared);
+            wicFactory = new SharpDX.WIC.ImagingFactory2();
         }
 
         /// <summary>
@@ -151,10 +151,10 @@ namespace CommonDX
         protected virtual void CreateDeviceResources()
         {
             // Dispose previous references and set to null
-            RemoveAndDispose(ref d3dDevice);
-            RemoveAndDispose(ref d3dContext);
-            RemoveAndDispose(ref d2dDevice);
-            RemoveAndDispose(ref d2dContext);
+            Utilities.Dispose(ref d3dDevice);
+            Utilities.Dispose(ref d3dContext);
+            Utilities.Dispose(ref d2dDevice);
+            Utilities.Dispose(ref d2dContext);
 
             // Allocate new references
             // Enable compatibility with Direct2D
@@ -178,14 +178,14 @@ namespace CommonDX
             featureLevel = d3dDevice.FeatureLevel;
 
             // Get Direct3D 11.1 context
-            d3dContext = ToDispose(d3dDevice.ImmediateContext.QueryInterface<SharpDX.Direct3D11.DeviceContext1>());
+            d3dContext = d3dDevice.ImmediateContext.QueryInterface<SharpDX.Direct3D11.DeviceContext1>();
 
             // Create Direct2D device
             using (var dxgiDevice = d3dDevice.QueryInterface<SharpDX.DXGI.Device>())
-                d2dDevice = ToDispose(new SharpDX.Direct2D1.Device(d2dFactory, dxgiDevice));
+                d2dDevice = new SharpDX.Direct2D1.Device(d2dFactory, dxgiDevice);
 
             // Create Direct2D context
-            d2dContext = ToDispose(new SharpDX.Direct2D1.DeviceContext(d2dDevice, SharpDX.Direct2D1.DeviceContextOptions.None));
+            d2dContext = new SharpDX.Direct2D1.DeviceContext(d2dDevice, SharpDX.Direct2D1.DeviceContextOptions.None);
         }
 
         /// <summary>

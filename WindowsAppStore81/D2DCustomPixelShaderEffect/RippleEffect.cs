@@ -23,6 +23,8 @@ using System;
 
 using SharpDX.IO;
 using System.Runtime.InteropServices;
+using SharpDX.Mathematics;
+using SharpDX.Mathematics.Interop;
 
 namespace D2DCustomPixelShaderEffect
 {
@@ -158,12 +160,12 @@ namespace D2DCustomPixelShaderEffect
             drawInformation.SetInputDescription(0, new InputDescription(Filter.MinimumMagLinearMipPoint, 1));
         }
 
-        public Rectangle MapInvalidRect(int inputIndex, Rectangle invalidInputRect)
+        public RawRectangle MapInvalidRect(int inputIndex, RawRectangle invalidInputRect)
         {
             return invalidInputRect;
         }
 
-        public Rectangle MapInputRectanglesToOutputRectangle(Rectangle[] inputRects, Rectangle[] inputOpaqueSubRects, out Rectangle outputOpaqueSubRect)
+        public RawRectangle MapInputRectanglesToOutputRectangle(RawRectangle[] inputRects, RawRectangle[] inputOpaqueSubRects, out RawRectangle outputOpaqueSubRect)
         {
             if (inputRects.Length != 1)
                 throw new ArgumentException("InputRects must be length of 1", "inputRects");
@@ -171,7 +173,7 @@ namespace D2DCustomPixelShaderEffect
             return inputRects[0];
         }
 
-        public void MapOutputRectangleToInputRectangles(Rectangle outputRect, Rectangle[] inputRects)
+        public void MapOutputRectangleToInputRectangles(RawRectangle outputRect, RawRectangle[] inputRects)
         {
             int expansion = (int)Math.Round(constants.Amplitude);
             if (inputRects.Length != 1)

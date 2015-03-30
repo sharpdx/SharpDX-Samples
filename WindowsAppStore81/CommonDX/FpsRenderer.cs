@@ -27,7 +27,8 @@ using CommonDX;
 using SharpDX;
 using SharpDX.Direct2D1;
 using SharpDX.DirectWrite;
-using Matrix = SharpDX.Matrix;
+using SharpDX.Mathematics;
+using Matrix = SharpDX.Mathematics.Matrix;
 using TextAntialiasMode = SharpDX.Direct2D1.TextAntialiasMode;
 
 namespace CommonDX
@@ -80,7 +81,7 @@ namespace CommonDX
             var context2D = target.DeviceManager.ContextDirect2D;
 
             context2D.BeginDraw();
-            context2D.Transform = Matrix.Identity;
+            context2D.Transform = (Matrix3x2)Matrix.Identity;
             context2D.DrawText(string.Format("{0:F2} FPS ({1:F1} ms)", measuredFPS, timeElapsed * 1000.0), textFormat, new RectangleF(8, 8, 8 + 256, 8 + 16), sceneColorBrush);
             context2D.EndDraw();
 
