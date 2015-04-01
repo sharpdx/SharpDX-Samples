@@ -109,7 +109,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaEngineAppVideo", "Desk
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Direct3D12", "Direct3D12", "{D7442738-C81F-4BD0-81BD-B92944FF3707}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloTriangle", "Desktop\Direct3D12\HelloTriangle\HelloTriangle.csproj", "{DC478137-4CF6-40C7-8B09-8EBD583CDC82}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloWorld", "Desktop\Direct3D12\HelloWorld\HelloWorld.csproj", "{DC478137-4CF6-40C7-8B09-8EBD583CDC82}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
