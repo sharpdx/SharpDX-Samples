@@ -12,15 +12,13 @@ The purpose of these samples is to give a grasp of each API/platform and how to 
 
 ## Installing
 
-1. Clone this repository with git or simply download it as a [zip](https://github.com/sharpdx/SharpDX-Samples/archive/master.zip) file.
-2. Restore SharpDX nuget packages on first install (they are not included in the repository), either by: 
-  - Restoring them from Visual Studio: Right click on the solution `Managed nuget packages for Solution...` and on the next window, click on the Restore button that should be displayed on a yellow bar at the top of the window
-  - Or run `RestoreNugetPackages.bat`
+1. Create a local directory `SharpDX` and clone this repository in it under `Samples`
+1. Download latest 3.x dev zip package from http://sharpdx.org and unzip it under `SharpDX` directory.
+2. You should have `SharpDX\Bin` along the `SharpDX\Samples`
 
 ## Content
 
 TODO
-
 
 ## Licensing
 MIT
