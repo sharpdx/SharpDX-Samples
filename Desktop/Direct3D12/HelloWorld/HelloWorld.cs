@@ -148,11 +148,11 @@ namespace HelloWorld
             // create the device
             try
             {
-                device = CreateDeviceWithSwapChain(DriverType.Hardware, DeviceCreationFlags.Debug, FeatureLevel.Level_9_1, swapChainDescription, out swapChain, out commandQueue);
+                device = CreateDeviceWithSwapChain(DriverType.Hardware, FeatureLevel.Level_9_1, swapChainDescription, out swapChain, out commandQueue);
             }
             catch(SharpDXException)
             {
-                device = CreateDeviceWithSwapChain(DriverType.Warp, DeviceCreationFlags.None, FeatureLevel.Level_9_1, swapChainDescription, out swapChain, out commandQueue);
+                device = CreateDeviceWithSwapChain(DriverType.Warp, FeatureLevel.Level_9_1, swapChainDescription, out swapChain, out commandQueue);
             }
 
             // create command queue and allocator objects
@@ -185,7 +185,7 @@ namespace HelloWorld
             scissorRectangle = new Rectangle(0, 0, width, height);
 
             // Create a fence to wait for next frame
-            fence = device.CreateFence(0, FenceMiscFlags.None);
+            fence = device.CreateFence(0, FenceFlags.None);
             currentFence = 1;
 
             // Close command list
@@ -212,14 +212,14 @@ namespace HelloWorld
             commandList.SetScissorRectangles(scissorRectangle);
 
 	        // Use barrier to notify that we are using the RenderTarget to clear it
-	        commandList.ResourceBarrierTransition(renderTarget, ResourceUsage.Present, ResourceUsage.RenderTarget);
+            commandList.ResourceBarrierTransition(renderTarget, ResourceStates.Present, ResourceStates.RenderTarget);
 
 	        // Clear the RenderTarget
             var time = clock.Elapsed.TotalSeconds;
-	        commandList.ClearRenderTargetView(descriptorHeap.CPUDescriptorHandleForHeapStart, new Color4((float)Math.Sin(time) * 0.25f + 0.5f, (float)Math.Sin(time * 0.5f) * 0.4f + 0.6f, 0.4f, 1.0f), null, 0);
+	        commandList.ClearRenderTargetView(descriptorHeap.CPUDescriptorHandleForHeapStart, new Color4((float)Math.Sin(time) * 0.25f + 0.5f, (float)Math.Sin(time * 0.5f) * 0.4f + 0.6f, 0.4f, 1.0f), 0,  null);
 
 	        // Use barrier to notify that we are going to present the RenderTarget
-	        commandList.ResourceBarrierTransition(renderTarget, ResourceUsage.RenderTarget, ResourceUsage.Present);
+            commandList.ResourceBarrierTransition(renderTarget, ResourceStates.RenderTarget, ResourceStates.Present);
 
 	        // Execute the command
             commandList.Close();
@@ -243,20 +243,23 @@ namespace HelloWorld
             }
         }
         
-        private static Device CreateDeviceWithSwapChain(DriverType driverType,
-            DeviceCreationFlags flags,
-            FeatureLevel level,
+        private static Device CreateDeviceWithSwapChain(DriverType driverType, FeatureLevel level,
             SwapChainDescription swapChainDescription,
             out SwapChain swapChain, out CommandQueue queue)
         {
-            var device = new Device(driverType, flags, level);
-            queue = device.CreateCommandQueue(new CommandQueueDescription(CommandListType.Direct));
-
-            using (var factory = new Factory1())
+#if DEBUG
+            // Enable the D3D12 debug layer.
+            DebugInterface.Get().EnableDebugLayer();
+#endif
+            using (var factory = new Factory4())
             {
+                var adapter = driverType == DriverType.Hardware ? null : factory.GetWarpAdapter();
+                var device = new Device(adapter, level);
+                queue = device.CreateCommandQueue(new CommandQueueDescription(CommandListType.Direct));
+
                 swapChain = new SwapChain(factory, queue, swapChainDescription);
+                return device;
             }
-            return device;
         }
     }
 }
