@@ -140,7 +140,7 @@ namespace HelloWorld
                 ModeDescription = new ModeDescription(Format.R8G8B8A8_UNorm),
                 Usage = Usage.RenderTargetOutput,
                 OutputHandle = form.Handle,
-                SwapEffect = SwapEffect.FlipSequential,
+                SwapEffect = SwapEffect.FlipDiscard,
                 SampleDescription = new SampleDescription(1, 0),
                 IsWindowed = true
             };
@@ -148,11 +148,11 @@ namespace HelloWorld
             // create the device
             try
             {
-                device = CreateDeviceWithSwapChain(DriverType.Hardware, FeatureLevel.Level_9_1, swapChainDescription, out swapChain, out commandQueue);
+                device = CreateDeviceWithSwapChain(DriverType.Hardware, FeatureLevel.Level_11_0, swapChainDescription, out swapChain, out commandQueue);
             }
             catch(SharpDXException)
             {
-                device = CreateDeviceWithSwapChain(DriverType.Warp, FeatureLevel.Level_9_1, swapChainDescription, out swapChain, out commandQueue);
+                device = CreateDeviceWithSwapChain(DriverType.Warp, FeatureLevel.Level_11_0, swapChainDescription, out swapChain, out commandQueue);
             }
 
             // create command queue and allocator objects
@@ -249,7 +249,7 @@ namespace HelloWorld
         {
 #if DEBUG
             // Enable the D3D12 debug layer.
-            DebugInterface.Get().EnableDebugLayer();
+            // DebugInterface.Get().EnableDebugLayer();
 #endif
             using (var factory = new Factory4())
             {
