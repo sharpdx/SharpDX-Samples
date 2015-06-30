@@ -37,8 +37,7 @@ namespace BipBounceApp
             using (var masteringVoice = new MasteringVoice(xaudio2))
             {
                 // Instantiate X3DAudio
-                var deviceFormat = xaudio2.GetDeviceDetails(0).OutputFormat;
-                var x3dAudio = new X3DAudio(deviceFormat.ChannelMask);
+                var x3dAudio = new X3DAudio(Speakers.Stereo);
 
                 var emitter = new Emitter
                                   {
@@ -95,10 +94,10 @@ namespace BipBounceApp
                     emitter.Position = newPositionVector3;
 
                     // Calculate X3DAudio settings
-                    var dspSettings = x3dAudio.Calculate(listener, emitter, CalculateFlags.Matrix | CalculateFlags.Doppler , 1, deviceFormat.Channels);
+                    var dspSettings = x3dAudio.Calculate(listener, emitter, CalculateFlags.Matrix | CalculateFlags.Doppler, 1, 2);
 
                     // Modify XAudio2 source voice settings
-                    sourceVoice.SetOutputMatrix(1, deviceFormat.Channels, dspSettings.MatrixCoefficients);
+                    sourceVoice.SetOutputMatrix(1, 2, dspSettings.MatrixCoefficients);
                     sourceVoice.SetFrequencyRatio(dspSettings.DopplerFactor);
 
                     // Wait for 50ms
