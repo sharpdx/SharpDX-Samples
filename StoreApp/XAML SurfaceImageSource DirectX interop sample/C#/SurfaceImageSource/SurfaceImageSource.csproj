@@ -14,8 +14,10 @@
     <TargetPlatformVersion>8.1</TargetPlatformVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateThumbprint>8E1AFC3F623BDFB144D0B087B24687299A360816</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>1F1018E0434E40F0B816F859FBC7A1C12E129927</PackageCertificateThumbprint>
     <PackageCertificateKeyFile>SurfaceImageSource_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxBundlePlatforms>neutral</AppxBundlePlatforms>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
