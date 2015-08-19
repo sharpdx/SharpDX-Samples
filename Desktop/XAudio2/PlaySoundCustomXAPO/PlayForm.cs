@@ -73,7 +73,7 @@ namespace PlaySoundCustomXAPO
             // Set the effect on the source
             ModulatorEffect = new ModulatorEffect();
             modulatorDescriptor = new EffectDescriptor(ModulatorEffect);
-            reverb = new Reverb();
+            reverb = new Reverb(xaudio2);
             effectDescriptor = new EffectDescriptor(reverb);
             //sourceVoice.SetEffectChain(modulatorDescriptor, effectDescriptor);
             sourceVoice.SetEffectChain(modulatorDescriptor);

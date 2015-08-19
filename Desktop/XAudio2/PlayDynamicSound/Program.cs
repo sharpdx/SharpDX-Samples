@@ -56,7 +56,7 @@ namespace PlayDynamicSound
 
             var audioBuffer = new AudioBuffer {Stream = dataStream, Flags = BufferFlags.EndOfStream, AudioBytes = bufferSize};
 
-            var reverb = new Reverb();
+            var reverb = new Reverb(xaudio2);
             var effectDescriptor = new EffectDescriptor(reverb);
             sourceVoice.SetEffectChain(effectDescriptor);
             sourceVoice.EnableEffect(0);
