@@ -1,10 +1,6 @@
 ﻿using SharpDX.DXGI;
 using System.Threading;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HelloConstBuffers
 {
@@ -46,12 +42,12 @@ namespace HelloConstBuffers
             using (var factory = new Factory4())
             {
                 // Describe and create the command queue.
-                CommandQueueDescription queueDesc = new CommandQueueDescription(CommandListType.Direct);
+                var queueDesc = new CommandQueueDescription(CommandListType.Direct);
                 commandQueue = device.CreateCommandQueue(queueDesc);
 
 
                 // Describe and create the swap chain.
-                SwapChainDescription swapChainDesc = new SwapChainDescription()
+                var swapChainDesc = new SwapChainDescription()
                 {
                     BufferCount = FrameCount,
                     ModeDescription = new ModeDescription(width, height, new Rational(60, 1), Format.R8G8B8A8_UNorm),
@@ -63,7 +59,7 @@ namespace HelloConstBuffers
                     IsWindowed = true
                 };
 
-                SwapChain tempSwapChain = new SwapChain(factory, commandQueue, swapChainDesc);
+                var tempSwapChain = new SwapChain(factory, commandQueue, swapChainDesc);
                 swapChain = tempSwapChain.QueryInterface<SwapChain3>();
                 tempSwapChain.Dispose();
                 frameIndex = swapChain.CurrentBackBufferIndex;
@@ -71,7 +67,7 @@ namespace HelloConstBuffers
 
             // Create descriptor heaps.
             // Describe and create a render target view (RTV) descriptor heap.
-            DescriptorHeapDescription rtvHeapDesc = new DescriptorHeapDescription()
+            var rtvHeapDesc = new DescriptorHeapDescription()
             {
                 DescriptorCount = FrameCount,
                 Flags = DescriptorHeapFlags.None,
@@ -86,7 +82,7 @@ namespace HelloConstBuffers
             // Flags indicate that this descriptor heap can be bound to the pipeline 
             // and that descriptors contained in it can be referenced by a root table.
 
-            DescriptorHeapDescription cbvHeapDesc = new DescriptorHeapDescription()
+            var cbvHeapDesc = new DescriptorHeapDescription()
             {
                 DescriptorCount = 1,
                 Flags = DescriptorHeapFlags.ShaderVisible,
@@ -96,7 +92,7 @@ namespace HelloConstBuffers
             constantBufferViewHeap = device.CreateDescriptorHeap(cbvHeapDesc);
 
             // Create frame resources.
-            CpuDescriptorHandle rtvHandle = renderTargetViewHeap.CPUDescriptorHandleForHeapStart;
+            var rtvHandle = renderTargetViewHeap.CPUDescriptorHandleForHeapStart;
             for (int n = 0; n < FrameCount; n++)
             {
                 renderTargets[n] = swapChain.GetBackBuffer<Resource>(n);
@@ -109,13 +105,20 @@ namespace HelloConstBuffers
 
         private void LoadAssets()
         {
-
-            DescriptorRange[] ranges = new DescriptorRange[] { new DescriptorRange() { RangeType = DescriptorRangeType.ConstantBufferView, BaseShaderRegister = 0, OffsetInDescriptorsFromTableStart = int.MinValue, DescriptorCount = 1 } };
-            RootParameter parameter = new RootParameter(ranges);
-            parameter.ShaderVisibility = ShaderVisibility.Vertex;
-
-            // Create an empty root signature.
-            RootSignatureDescription rootSignatureDesc = new RootSignatureDescription(RootSignatureFlags.AllowInputAssemblerInputLayout, new RootParameter[] { parameter });
+            // Create the root signature description.
+            var rootSignatureDesc = new RootSignatureDescription(RootSignatureFlags.AllowInputAssemblerInputLayout,
+                // Root Parameters
+                new[]
+                {
+                    new RootParameter(ShaderVisibility.Vertex,
+                        new DescriptorRange()
+                        {
+                            RangeType = DescriptorRangeType.ConstantBufferView,
+                            BaseShaderRegister = 0,
+                            OffsetInDescriptorsFromTableStart = int.MinValue,
+                            DescriptorCount = 1
+                        })
+                });
             rootSignature = device.CreateRootSignature(rootSignatureDesc.Serialize());
 
             // Create the pipeline state, which includes compiling and loading shaders.
@@ -132,14 +135,14 @@ namespace HelloConstBuffers
 #endif
 
             // Define the vertex input layout.
-            InputElement[] inputElementDescs = new InputElement[]
+            var inputElementDescs = new []
             {
                     new InputElement("POSITION",0,Format.R32G32B32_Float,0,0),
                     new InputElement("COLOR",0,Format.R32G32B32A32_Float,12,0)
             };
 
             // Describe and create the graphics pipeline state object (PSO).
-            GraphicsPipelineStateDescription psoDesc = new GraphicsPipelineStateDescription()
+            var psoDesc = new GraphicsPipelineStateDescription()
             {
                 InputLayout = new InputLayoutDescription(inputElementDescs),
                 RootSignature = rootSignature,
@@ -167,11 +170,11 @@ namespace HelloConstBuffers
             float aspectRatio = viewport.Width / viewport.Height;
 
             // Define the geometry for a triangle.
-            Vertex[] triangleVertices = new Vertex[]
+            var triangleVertices = new []
             {
-                    new Vertex() {position=new Vector3(0.0f, 0.25f * aspectRatio, 0.0f ),color=new Vector4(1.0f, 0.0f, 0.0f, 1.0f ) },
-                    new Vertex() {position=new Vector3(0.25f, -0.25f * aspectRatio, 0.0f),color=new Vector4(0.0f, 1.0f, 0.0f, 1.0f) },
-                    new Vertex() {position=new Vector3(-0.25f, -0.25f * aspectRatio, 0.0f),color=new Vector4(0.0f, 0.0f, 1.0f, 1.0f ) },
+                    new Vertex() {Position=new Vector3(0.0f, 0.25f * aspectRatio, 0.0f ),Color=new Vector4(1.0f, 0.0f, 0.0f, 1.0f ) },
+                    new Vertex() {Position=new Vector3(0.25f, -0.25f * aspectRatio, 0.0f),Color=new Vector4(0.0f, 1.0f, 0.0f, 1.0f) },
+                    new Vertex() {Position=new Vector3(-0.25f, -0.25f * aspectRatio, 0.0f),Color=new Vector4(0.0f, 0.0f, 1.0f, 1.0f ) },
             };
 
             int vertexBufferSize = Utilities.SizeOf(triangleVertices);
@@ -200,7 +203,7 @@ namespace HelloConstBuffers
             constantBuffer = device.CreateCommittedResource(new HeapProperties(HeapType.Upload), HeapFlags.None, ResourceDescription.Buffer(1024 * 64), ResourceStates.GenericRead);
 
             //// Describe and create a constant buffer view.
-            ConstantBufferViewDescription cbvDesc = new ConstantBufferViewDescription()
+            var cbvDesc = new ConstantBufferViewDescription()
             {
                 BufferLocation = constantBuffer.GPUVirtualAddress,
                 SizeInBytes = (Utilities.SizeOf<ConstantBuffer>() + 255) & ~255
@@ -270,14 +273,14 @@ namespace HelloConstBuffers
             // WAITING FOR THE FRAME TO COMPLETE BEFORE CONTINUING IS NOT BEST PRACTICE. 
             // This is code implemented as such for simplicity. 
 
-            int fence = fenceValue;
-            commandQueue.Signal(this.fence, fence);
+            int localFence = fenceValue;
+            commandQueue.Signal(this.fence, localFence);
             fenceValue++;
 
             // Wait until the previous frame is finished.
-            if (this.fence.CompletedValue < fence)
+            if (this.fence.CompletedValue < localFence)
             {
-                this.fence.SetEventOnCompletion(fence, fenceEvent.SafeWaitHandle.DangerousGetHandle());
+                this.fence.SetEventOnCompletion(localFence, fenceEvent.SafeWaitHandle.DangerousGetHandle());
                 fenceEvent.WaitOne();
             }
 
@@ -289,10 +292,10 @@ namespace HelloConstBuffers
             const float translationSpeed = 0.005f;
             const float offsetBounds = 1.25f;
 
-            constantBufferData.offset.X += translationSpeed;
-            if (constantBufferData.offset.X > offsetBounds)
+            constantBufferData.Offset.X += translationSpeed;
+            if (constantBufferData.Offset.X > offsetBounds)
             {
-                constantBufferData.offset.X = -offsetBounds;
+                constantBufferData.Offset.X = -offsetBounds;
             }
             Utilities.Write(constantBufferPointer, ref constantBufferData);
         }
@@ -339,13 +342,13 @@ namespace HelloConstBuffers
 
         struct Vertex
         {
-            public Vector3 position;
-            public Vector4 color;
+            public Vector3 Position;
+            public Vector4 Color;
         };
 
         struct ConstantBuffer
         {
-            public Vector4 offset;
+            public Vector4 Offset;
         };
 
         const int FrameCount = 2;
@@ -355,7 +358,7 @@ namespace HelloConstBuffers
         // Pipeline objects.
         private SwapChain3 swapChain;
         private Device device;
-        private Resource[] renderTargets = new Resource[FrameCount];
+        private readonly Resource[] renderTargets = new Resource[FrameCount];
         private CommandAllocator commandAllocator;
         private CommandQueue commandQueue;
         private RootSignature rootSignature;

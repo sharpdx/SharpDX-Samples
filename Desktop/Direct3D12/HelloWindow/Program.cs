@@ -1,9 +1,5 @@
-﻿using SharpDX.Windows;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System;
+using SharpDX.Windows;
 
 namespace HelloWindow
 {
@@ -15,12 +11,14 @@ namespace HelloWindow
         [STAThread]
         static void Main()
         {
-            var form = new RenderForm("Hello Window");
-            form.Width = 1280;
-            form.Height = 800;
+            var form = new RenderForm("Hello Window")
+            {
+                Width = 1280,
+                Height = 800
+            };
             form.Show();
 
-            using (HelloWindow app = new HelloWindow())
+            using (var app = new HelloWindow())
             {
                 app.Initialize(form);
 

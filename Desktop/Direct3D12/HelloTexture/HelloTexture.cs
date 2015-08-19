@@ -1,10 +1,6 @@
 ﻿using SharpDX.DXGI;
 using System.Threading;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HelloTexture
 {
@@ -48,12 +44,12 @@ namespace HelloTexture
             using (var factory = new Factory4())
             {
                 // Describe and create the command queue.
-                CommandQueueDescription queueDesc = new CommandQueueDescription(CommandListType.Direct);
+                var queueDesc = new CommandQueueDescription(CommandListType.Direct);
                 commandQueue = device.CreateCommandQueue(queueDesc);
 
 
                 // Describe and create the swap chain.
-                SwapChainDescription swapChainDesc = new SwapChainDescription()
+                var swapChainDesc = new SwapChainDescription()
                 {
                     BufferCount = FrameCount,
                     ModeDescription = new ModeDescription(width, height, new Rational(60, 1), Format.R8G8B8A8_UNorm),
@@ -65,7 +61,7 @@ namespace HelloTexture
                     IsWindowed = true
                 };
 
-                SwapChain tempSwapChain = new SwapChain(factory, commandQueue, swapChainDesc);
+                var tempSwapChain = new SwapChain(factory, commandQueue, swapChainDesc);
                 swapChain = tempSwapChain.QueryInterface<SwapChain3>();
                 tempSwapChain.Dispose();
                 frameIndex = swapChain.CurrentBackBufferIndex;
@@ -73,7 +69,7 @@ namespace HelloTexture
 
             // Create descriptor heaps.
             // Describe and create a render target view (RTV) descriptor heap.
-            DescriptorHeapDescription rtvHeapDesc = new DescriptorHeapDescription()
+            var rtvHeapDesc = new DescriptorHeapDescription()
             {
                 DescriptorCount = FrameCount,
                 Flags = DescriptorHeapFlags.None,
@@ -82,7 +78,7 @@ namespace HelloTexture
 
             renderTargetViewHeap = device.CreateDescriptorHeap(rtvHeapDesc);
 
-            DescriptorHeapDescription srvHeapDesc = new DescriptorHeapDescription()
+            var srvHeapDesc = new DescriptorHeapDescription()
             {
                 DescriptorCount = 1,
                 Flags = DescriptorHeapFlags.ShaderVisible,
@@ -94,7 +90,7 @@ namespace HelloTexture
             rtvDescriptorSize = device.GetDescriptorHandleIncrementSize(DescriptorHeapType.RenderTargetView);
 
             // Create frame resources.
-            CpuDescriptorHandle rtvHandle = renderTargetViewHeap.CPUDescriptorHandleForHeapStart;
+            var rtvHandle = renderTargetViewHeap.CPUDescriptorHandleForHeapStart;
             for (int n = 0; n < FrameCount; n++)
             {
                 renderTargets[n] = swapChain.GetBackBuffer<Resource>(n);
@@ -107,29 +103,30 @@ namespace HelloTexture
 
         private void LoadAssets()
         {
-            DescriptorRange[] ranges = new DescriptorRange[] { new DescriptorRange() { RangeType = DescriptorRangeType.ShaderResourceView, DescriptorCount = 1, OffsetInDescriptorsFromTableStart = int.MinValue, BaseShaderRegister = 0 } };
+            // Create the root signature description.
+            var rootSignatureDesc = new RootSignatureDescription(RootSignatureFlags.AllowInputAssemblerInputLayout,
+                // Root Parameters
+                new[]
+                {
+                    new RootParameter(ShaderVisibility.Pixel,
+                        new DescriptorRange()
+                        {
+                            RangeType = DescriptorRangeType.ShaderResourceView,
+                            DescriptorCount = 1,
+                            OffsetInDescriptorsFromTableStart = int.MinValue,
+                            BaseShaderRegister = 0
+                        })
+                },
+                // Samplers
+                new[]
+                {
+                    new StaticSamplerDescription(ShaderVisibility.Pixel, 0, 0)
+                    {
+                        Filter = Filter.MinimumMinMagMipPoint,
+                        AddressUVW = TextureAddressMode.Border,
+                    }
+                });
 
-            StaticSamplerDescription sampler = new StaticSamplerDescription()
-            {
-                Filter = Filter.MinimumMinMagMipPoint,
-                AddressU = TextureAddressMode.Border,
-                AddressV = TextureAddressMode.Border,
-                AddressW = TextureAddressMode.Border,
-                MipLODBias = 0,
-                MaxAnisotropy = 0,
-                ComparisonFunc = Comparison.Never,
-                BorderColor = StaticBorderColor.TransparentBlack,
-                MinLOD = 0.0f,
-                MaxLOD = float.MaxValue,
-                ShaderRegister = 0,
-                RegisterSpace = 0,
-                ShaderVisibility = ShaderVisibility.Pixel,
-            };
-
-            RootParameter[] rootParameters = new RootParameter[] { new RootParameter(ranges) };
-            rootParameters[0].ShaderVisibility = ShaderVisibility.Pixel;
-
-            RootSignatureDescription rootSignatureDesc = new RootSignatureDescription(RootSignatureFlags.AllowInputAssemblerInputLayout, rootParameters, new StaticSamplerDescription[] { sampler });
             rootSignature = device.CreateRootSignature(0, rootSignatureDesc.Serialize());
 
             // Create the pipeline state, which includes compiling and loading shaders.
@@ -146,14 +143,14 @@ namespace HelloTexture
 #endif
 
             // Define the vertex input layout.
-            InputElement[] inputElementDescs = new InputElement[]
+            var inputElementDescs = new []
             {
                     new InputElement("POSITION",0,Format.R32G32B32_Float,0,0),
                     new InputElement("TEXCOORD",0,Format.R32G32_Float,12,0)
             };
 
             // Describe and create the graphics pipeline state object (PSO).
-            GraphicsPipelineStateDescription psoDesc = new GraphicsPipelineStateDescription()
+            var psoDesc = new GraphicsPipelineStateDescription()
             {
                 InputLayout = new InputLayoutDescription(inputElementDescs),
                 RootSignature = rootSignature,
@@ -181,11 +178,11 @@ namespace HelloTexture
             float aspectRatio = viewport.Width / viewport.Height;
 
             // Define the geometry for a triangle.
-            Vertex[] triangleVertices = new Vertex[]
+            var triangleVertices = new []
             {
-                    new Vertex() {position=new Vector3(0.0f, 0.25f * aspectRatio, 0.0f ),uv=new Vector2(0.5f, 0.0f) },
-                    new Vertex() {position=new Vector3(0.25f, -0.25f * aspectRatio, 0.0f),uv=new Vector2(1.0f, 1.0f) },
-                    new Vertex() {position=new Vector3(-0.25f, -0.25f * aspectRatio, 0.0f),uv=new Vector2(0.0f, 1.0f) },
+                new Vertex() { Position = new Vector3(0.0f, 0.25f * aspectRatio, 0.0f ),  TexCoord = new Vector2(0.5f, 0.0f) },
+                new Vertex() { Position = new Vector3(0.25f, -0.25f * aspectRatio, 0.0f), TexCoord = new Vector2(1.0f, 1.0f) },
+                new Vertex() { Position = new Vector3(-0.25f, -0.25f * aspectRatio, 0.0f),TexCoord = new Vector2(0.0f, 1.0f) },
             };
 
             int vertexBufferSize = Utilities.SizeOf(triangleVertices);
@@ -197,7 +194,7 @@ namespace HelloTexture
             vertexBuffer = device.CreateCommittedResource(new HeapProperties(HeapType.Upload), HeapFlags.None, ResourceDescription.Buffer(vertexBufferSize), ResourceStates.GenericRead);
 
             // Copy the triangle data to the vertex buffer.
-            IntPtr pVertexDataBegin = vertexBuffer.Map(0);
+            var pVertexDataBegin = vertexBuffer.Map(0);
             Utilities.Write(pVertexDataBegin, triangleVertices, 0, triangleVertices.Length);
             vertexBuffer.Unmap(0);
 
@@ -207,24 +204,22 @@ namespace HelloTexture
             vertexBufferView.StrideInBytes = Utilities.SizeOf<Vertex>();
             vertexBufferView.SizeInBytes = vertexBufferSize;
 
-            Resource textureUploadHeap;
-
             // Create the texture.
             // Describe and create a Texture2D.
-            ResourceDescription textureDesc = ResourceDescription.Texture2D(Format.R8G8B8A8_UNorm, TextureWidth, TextureHeight);
+            var textureDesc = ResourceDescription.Texture2D(Format.R8G8B8A8_UNorm, TextureWidth, TextureHeight);
             texture = device.CreateCommittedResource(new HeapProperties(HeapType.Default), HeapFlags.None, textureDesc, ResourceStates.CopyDestination);
 
             long uploadBufferSize = GetRequiredIntermediateSize(this.texture, 0, 1);
 
             // Create the GPU upload buffer.
-            textureUploadHeap = device.CreateCommittedResource(new HeapProperties(HeapType.Upload), HeapFlags.None, ResourceDescription.Texture2D(Format.R8G8B8A8_UNorm, TextureWidth, TextureHeight), ResourceStates.GenericRead);
+            var textureUploadHeap = device.CreateCommittedResource(new HeapProperties(HeapType.Upload), HeapFlags.None, ResourceDescription.Texture2D(Format.R8G8B8A8_UNorm, TextureWidth, TextureHeight), ResourceStates.GenericRead);
 
             // Copy data to the intermediate upload heap and then schedule a copy 
             // from the upload heap to the Texture2D.
             byte[] textureData = GenerateTextureData();
 
-            GCHandle handle = GCHandle.Alloc(textureData, GCHandleType.Pinned);
-            IntPtr ptr = Marshal.UnsafeAddrOfPinnedArrayElement(textureData, 0);
+            var handle = GCHandle.Alloc(textureData, GCHandleType.Pinned);
+            var ptr = Marshal.UnsafeAddrOfPinnedArrayElement(textureData, 0);
             textureUploadHeap.WriteToSubresource(0, null, ptr, TexturePixelSize * TextureWidth, textureData.Length);
             handle.Free();
 
@@ -233,13 +228,13 @@ namespace HelloTexture
             commandList.ResourceBarrierTransition(this.texture, ResourceStates.CopyDestination, ResourceStates.PixelShaderResource);
 
             // Describe and create a SRV for the texture.
-            ShaderResourceViewDescription srvDesc = new ShaderResourceViewDescription()
+            var srvDesc = new ShaderResourceViewDescription
             {
                 Shader4ComponentMapping = D3DXUtilities.DefaultComponentMapping(),
                 Format = textureDesc.Format,
                 Dimension = ShaderResourceViewDimension.Texture2D,
+                Texture2D = {MipLevels = 1},
             };
-            srvDesc.Texture2D.MipLevels = 1;
 
             device.CreateShaderResourceView(this.texture, srvDesc, shaderRenderViewHeap.CPUDescriptorHandleForHeapStart);
 
@@ -255,7 +250,6 @@ namespace HelloTexture
 
             // Create an event handle to use for frame synchronization.
             fenceEvent = new AutoResetEvent(false);
-
 
             WaitForPreviousFrame();
 
@@ -299,10 +293,10 @@ namespace HelloTexture
 
         private long GetRequiredIntermediateSize(Resource destinationResource, int firstSubresource, int NumSubresources)
         {
-            ResourceDescription desc = destinationResource.Description;
-            long RequiredSize = 0;
-            device.GetCopyableFootprints(ref desc, firstSubresource, NumSubresources, 0, null, null, null, out RequiredSize);
-            return RequiredSize;
+            var desc = destinationResource.Description;
+            long requiredSize;
+            device.GetCopyableFootprints(ref desc, firstSubresource, NumSubresources, 0, null, null, null, out requiredSize);
+            return requiredSize;
         }
 
         private void PopulateCommandList()
@@ -331,7 +325,7 @@ namespace HelloTexture
             // Indicate that the back buffer will be used as a render target.
             commandList.ResourceBarrierTransition(renderTargets[frameIndex], ResourceStates.Present, ResourceStates.RenderTarget);
             
-            CpuDescriptorHandle rtvHandle = renderTargetViewHeap.CPUDescriptorHandleForHeapStart;
+            var rtvHandle = renderTargetViewHeap.CPUDescriptorHandleForHeapStart;
             rtvHandle += frameIndex * rtvDescriptorSize;
             commandList.SetRenderTargets(1, rtvHandle, false, null);
 
@@ -357,14 +351,14 @@ namespace HelloTexture
             // WAITING FOR THE FRAME TO COMPLETE BEFORE CONTINUING IS NOT BEST PRACTICE. 
             // This is code implemented as such for simplicity. 
 
-            int fence = fenceValue;
-            commandQueue.Signal(this.fence, fence);
+            int localFence = fenceValue;
+            commandQueue.Signal(this.fence, localFence);
             fenceValue++;
 
             // Wait until the previous frame is finished.
-            if (this.fence.CompletedValue < fence)
+            if (this.fence.CompletedValue < localFence)
             {
-                this.fence.SetEventOnCompletion(fence, fenceEvent.SafeWaitHandle.DangerousGetHandle());
+                this.fence.SetEventOnCompletion(localFence, fenceEvent.SafeWaitHandle.DangerousGetHandle());
                 fenceEvent.WaitOne();
             }
 
@@ -374,7 +368,6 @@ namespace HelloTexture
         public void Update()
         {
         }
-
 
         public void Render()
         {
@@ -417,8 +410,9 @@ namespace HelloTexture
 
         struct Vertex
         {
-            public Vector3 position;
-            public Vector2 uv;
+            public Vector3 Position;
+
+            public Vector2 TexCoord;
         };
 
         const int TextureWidth = 256;
