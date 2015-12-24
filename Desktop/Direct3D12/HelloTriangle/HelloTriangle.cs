@@ -207,7 +207,7 @@ namespace HelloTriangle
 
             var rtvHandle = renderTargetViewHeap.CPUDescriptorHandleForHeapStart;
             rtvHandle += frameIndex * rtvDescriptorSize;
-            commandList.SetRenderTargets(1, rtvHandle, false, null);
+            commandList.SetRenderTargets(rtvHandle, null);
 
             // Record commands.
             commandList.ClearRenderTargetView(rtvHandle, new Color4(0, 0.2F, 0.4f, 1), 0, null);
