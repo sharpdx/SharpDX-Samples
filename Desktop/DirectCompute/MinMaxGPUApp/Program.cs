@@ -41,7 +41,7 @@ namespace MinMaxGPUApp
             // --------------------------------------------------------------------------------------
 
             // Create Device and SwapChain 
-            var device = new Device(DriverType.Hardware, DeviceCreationFlags.Debug);
+            var device = new Device(DriverType.Hardware, DeviceCreationFlags.None);
             var context = device.ImmediateContext;
 
             const int Width = 1024;

@@ -42,7 +42,7 @@
             var defaultDevice = new SharpDX.Direct3D11.Device(SharpDX.Direct3D.DriverType.Hardware,
                                                               d3d.DeviceCreationFlags.VideoSupport
                                                               | d3d.DeviceCreationFlags.BgraSupport
-                                                              | d3d.DeviceCreationFlags.Debug); // take out the Debug flag for better performance
+                                                              | d3d.DeviceCreationFlags.None); // take out the Debug flag for better performance
 
             var d3dDevice = defaultDevice.QueryInterface<d3d.Device1>(); // get a reference to the Direct3D 11.1 device
             var dxgiDevice = d3dDevice.QueryInterface<dxgi.Device>(); // get a reference to DXGI device
