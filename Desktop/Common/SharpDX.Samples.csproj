@@ -46,6 +46,9 @@
     <Reference Include="SharpDX.Direct2D1">
       <HintPath>..\..\..\Bin\Desktop\SharpDX.Direct2D1.dll</HintPath>
     </Reference>
+    <Reference Include="SharpDX.Direct3D10">
+      <HintPath>..\..\..\Bin\Desktop\SharpDX.Direct3D10.dll</HintPath>
+    </Reference>
     <Reference Include="SharpDX.Direct3D11">
       <HintPath>..\..\..\Bin\Desktop\SharpDX.Direct3D11.dll</HintPath>
     </Reference>
@@ -67,6 +70,7 @@
     <Compile Include="DemoTime.cs" />
     <Compile Include="Direct2D1DemoApp.cs" />
     <Compile Include="Direct2D1WinFormDemoApp.cs" />
+    <Compile Include="Direct3D10DemoApp.cs" />
     <Compile Include="Direct3D11DemoApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
