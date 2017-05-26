@@ -117,8 +117,11 @@ namespace CustomFont
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            _factory.UnregisterFontFileLoader(this);
-            _factory.UnregisterFontCollectionLoader(this);
+            if (disposing)
+            {
+                _factory.UnregisterFontFileLoader(this);
+                _factory.UnregisterFontCollectionLoader(this);
+            }
 
             base.Dispose(disposing);
         }
