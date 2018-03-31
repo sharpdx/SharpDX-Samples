@@ -33,7 +33,7 @@ namespace MouseTrackApp
     static class Program
     {
         private static TextBox textBox;
-        private static ConcurrentDictionary<IntPtr, string> _deviceNameCache = new ConcurrentDictionary<IntPtr, string>();
+        private static readonly ConcurrentDictionary<IntPtr, string> DeviceNameCache = new ConcurrentDictionary<IntPtr, string>();
 
         /// <summary>
         /// The main entry point for the application.
@@ -72,9 +72,9 @@ namespace MouseTrackApp
 
         static string GetDeviceName(IntPtr devPtr)
         {
-            if (_deviceNameCache.ContainsKey(devPtr))
+            if (DeviceNameCache.ContainsKey(devPtr))
             {
-                return _deviceNameCache[devPtr];
+                return DeviceNameCache[devPtr];
             }
             var devices = Device.GetDevices();
             var deviceName = devPtr.ToString();
@@ -84,7 +84,7 @@ namespace MouseTrackApp
                 deviceName = dev.DeviceName.Split('#')[1];
                 break;
             }
-            _deviceNameCache.TryAdd(devPtr, deviceName);
+            DeviceNameCache.TryAdd(devPtr, deviceName);
             return deviceName;
         }
 
