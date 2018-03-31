@@ -19,6 +19,7 @@
 // THE SOFTWARE.
 
 using System;
+using System.Collections.Concurrent;
 using System.Windows.Forms;
 
 using SharpDX.Multimedia;
@@ -32,6 +33,7 @@ namespace MouseTrackApp
     static class Program
     {
         private static TextBox textBox;
+        private static ConcurrentDictionary<IntPtr, string> _deviceNameCache = new ConcurrentDictionary<IntPtr, string>();
 
         /// <summary>
         /// The main entry point for the application.
@@ -61,9 +63,29 @@ namespace MouseTrackApp
         /// <param name="rawArgs">The <see cref="SharpDX.RawInput.RawInputEventArgs"/> instance containing the event data.</param>
         static void UpdateMouseText(RawInputEventArgs rawArgs)
         {
+            const string sep = "        ";
             var args = (MouseInputEventArgs)rawArgs;
+            var devName = GetDeviceName(args.Device);
+            textBox.AppendText(
+                $"Device: {devName} {sep} Coords: {args.X},{args.Y} {sep} Buttons: {args.ButtonFlags} {sep} State: {args.Mode} {sep} Wheel: {args.WheelDelta}\r\n");
+        }
 
-            textBox.AppendText(string.Format("(x,y):({0},{1}) Buttons: {2} State: {3} Wheel: {4}\r\n", args.X, args.Y, args.ButtonFlags, args.Mode, args.WheelDelta));            
+        static string GetDeviceName(IntPtr devPtr)
+        {
+            if (_deviceNameCache.ContainsKey(devPtr))
+            {
+                return _deviceNameCache[devPtr];
+            }
+            var devices = Device.GetDevices();
+            var deviceName = devPtr.ToString();
+            foreach (var dev in devices)
+            {
+                if (dev.Handle != devPtr) continue;
+                deviceName = dev.DeviceName.Split('#')[1];
+                break;
+            }
+            _deviceNameCache.TryAdd(devPtr, deviceName);
+            return deviceName;
         }
 
         /// <summary>
