@@ -67,7 +67,7 @@ namespace MouseTrackApp
             var args = (MouseInputEventArgs)rawArgs;
             var devName = GetDeviceName(args.Device);
             textBox.AppendText(
-                $"Device: {devName} {sep} Coords: {args.X},{args.Y} {sep} Buttons: {args.ButtonFlags} {sep} State: {args.Mode} {sep} Wheel: {args.WheelDelta}\r\n");
+                $"Mouse: {devName} {sep} Coords: {args.X},{args.Y} {sep} Buttons: {args.ButtonFlags} {sep} State: {args.Mode} {sep} Wheel: {args.WheelDelta}\r\n");
         }
 
         static string GetDeviceName(IntPtr devPtr)
@@ -94,8 +94,10 @@ namespace MouseTrackApp
         /// <param name="rawArgs">The <see cref="SharpDX.RawInput.RawInputEventArgs"/> instance containing the event data.</param>
         static void UpdateKeyboardText(RawInputEventArgs rawArgs)
         {
+            const string sep = "        ";
             var args = (KeyboardInputEventArgs)rawArgs;
-            textBox.AppendText(string.Format("Key: {0} State: {1} ScanCodeFlags: {2}\r\n", args.Key, args.State, args.ScanCodeFlags));
+            var devName = GetDeviceName(args.Device);
+            textBox.AppendText($"Keyboard: {devName} {sep} Key: {args.Key} ({(int)args.Key}) {sep} State: {args.State} {sep} ScanCodeFlags: {args.ScanCodeFlags}\r\n");
         }
 
         /// <summary>
