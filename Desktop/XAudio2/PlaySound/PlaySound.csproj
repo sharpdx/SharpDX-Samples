@@ -34,10 +34,10 @@
   <ItemGroup>
     <Reference Include="SharpDX, Version=2.6.2.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Bin\Desktop\SharpDX.dll</HintPath>
+      <HintPath>..\..\..\..\Bin\$(Configuration)\net45\SharpDX.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.XAudio2">
-      <HintPath>..\..\..\..\Bin\Desktop\SharpDX.XAudio2.dll</HintPath>
+      <HintPath>..\..\..\..\Bin\$(Configuration)\net45\SharpDX.XAudio2.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

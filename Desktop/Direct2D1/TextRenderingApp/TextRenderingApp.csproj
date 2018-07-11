@@ -35,19 +35,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="SharpDX">
-      <HintPath>..\..\..\..\Bin\Desktop\SharpDX.dll</HintPath>
+      <HintPath>..\..\..\..\Bin\$(Configuration)\net45\SharpDX.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.Direct2D1">
-      <HintPath>..\..\..\..\Bin\Desktop\SharpDX.Direct2D1.dll</HintPath>
+      <HintPath>..\..\..\..\Bin\$(Configuration)\net45\SharpDX.Direct2D1.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.Direct3D10">
-      <HintPath>..\..\..\..\Bin\Desktop\SharpDX.Direct3D10.dll</HintPath>
+      <HintPath>..\..\..\..\Bin\$(Configuration)\net45\SharpDX.Direct3D10.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.DXGI">
-      <HintPath>..\..\..\..\Bin\Desktop\SharpDX.DXGI.dll</HintPath>
+      <HintPath>..\..\..\..\Bin\$(Configuration)\net45\SharpDX.DXGI.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.Mathematics">
-      <HintPath>..\..\..\..\Bin\Desktop\SharpDX.Mathematics.dll</HintPath>
+      <HintPath>..\..\..\..\Bin\$(Configuration)\net45\SharpDX.Mathematics.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />

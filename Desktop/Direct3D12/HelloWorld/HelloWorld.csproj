@@ -39,27 +39,27 @@
   <ItemGroup>
     <Reference Include="SharpDX, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Bin\Desktop\SharpDX.dll</HintPath>
+      <HintPath>..\..\..\..\Bin\$(Configuration)\net45\SharpDX.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.D3DCompiler, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Bin\Desktop\SharpDX.D3DCompiler.dll</HintPath>
+      <HintPath>..\..\..\..\Bin\$(Configuration)\net45\SharpDX.D3DCompiler.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.Desktop, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Bin\Desktop\SharpDX.Desktop.dll</HintPath>
+      <HintPath>..\..\..\..\Bin\$(Configuration)\net45\SharpDX.Desktop.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.Direct3D12, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Bin\Desktop\SharpDX.Direct3D12.dll</HintPath>
+      <HintPath>..\..\..\..\Bin\$(Configuration)\net45\SharpDX.Direct3D12.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.DXGI, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Bin\Desktop\SharpDX.DXGI.dll</HintPath>
+      <HintPath>..\..\..\..\Bin\$(Configuration)\net45\SharpDX.DXGI.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.Mathematics, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Bin\Desktop\SharpDX.Mathematics.dll</HintPath>
+      <HintPath>..\..\..\..\Bin\$(Configuration)\net45\SharpDX.Mathematics.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

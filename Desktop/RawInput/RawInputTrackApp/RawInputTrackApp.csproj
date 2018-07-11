@@ -37,10 +37,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="SharpDX">
-      <HintPath>..\..\..\..\Bin\Desktop\SharpDX.dll</HintPath>
+      <HintPath>..\..\..\..\Bin\$(Configuration)\net45\SharpDX.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.RawInput">
-      <HintPath>..\..\..\..\Bin\Desktop\SharpDX.RawInput.dll</HintPath>
+      <HintPath>..\..\..\..\Bin\$(Configuration)\net45\SharpDX.RawInput.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
