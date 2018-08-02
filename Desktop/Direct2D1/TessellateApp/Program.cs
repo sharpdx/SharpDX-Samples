@@ -27,7 +27,7 @@ namespace TessellateApp
     /// <summary>
     /// Direct2D1 Tessellate Demo.
     /// </summary>
-    public class Program : Direct2D1DemoApp, TessellationSink
+    public class Program : Direct2D1DemoApp
     {
         EllipseGeometry Ellipse { get; set; }
         PathGeometry TesselatedGeometry{ get; set; }
@@ -48,8 +48,9 @@ namespace TessellateApp
             // Force RoundLineJoin otherwise the tesselated looks buggy at line joins
             GeometrySink.SetSegmentFlags(PathSegment.ForceRoundLineJoin); 
 
+            var tSink = new MyTesselationSink(GeometrySink);
             // Tesselate the ellipse to our TessellationSink
-            Ellipse.Tessellate(1, this);
+            Ellipse.Tessellate(1, tSink);
 
             // Close the GeometrySink
             GeometrySink.Close();
@@ -63,22 +64,6 @@ namespace TessellateApp
             RenderTarget2D.DrawGeometry(TesselatedGeometry, SceneColorBrush, 1, null);
         }
 
-        void TessellationSink.AddTriangles(Triangle[] triangles)
-        {
-            // Add Tessellated triangles to the opened GeometrySink
-            foreach (var triangle in triangles)
-            {
-                GeometrySink.BeginFigure(triangle.Point1, FigureBegin.Filled);
-                GeometrySink.AddLine(triangle.Point2);
-                GeometrySink.AddLine(triangle.Point3);
-                GeometrySink.EndFigure(FigureEnd.Closed);                
-            }
-        }
-
-        void TessellationSink.Close()
-        {            
-        }
-
         [STAThread]
         static void Main(string[] args)
         {
@@ -86,9 +71,53 @@ namespace TessellateApp
             program.Run(new DemoConfiguration("SharpDX Direct2D1 Tessellate Demo"));
         }
 
-        public IDisposable Shadow
+        private class MyTesselationSink : TessellationSink
         {
-            get; set;
+            private GeometrySink _sink;
+
+            public MyTesselationSink(GeometrySink sink)
+            {
+                _sink = sink;
+            }
+
+            public void AddTriangles(Triangle[] triangles)
+            {
+                // Add Tessellated triangles to the opened _sink
+                foreach (var triangle in triangles)
+                {
+                    _sink.BeginFigure(triangle.Point1, FigureBegin.Filled);
+                    _sink.AddLine(triangle.Point2);
+                    _sink.AddLine(triangle.Point3);
+                    _sink.EndFigure(FigureEnd.Closed);
+                }
+            }
+
+            public void Close()
+            {
+                
+            }
+
+            public void Dispose()
+            {
+                Shadow?.Dispose();
+            }
+
+            public IDisposable Shadow { get; set; }
+
+            public Result QueryInterface(ref Guid guid, out IntPtr comObject)
+            {
+                throw new NotImplementedException();
+            }
+
+            public int AddReference()
+            {
+                throw new NotImplementedException();
+            }
+
+            public int Release()
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

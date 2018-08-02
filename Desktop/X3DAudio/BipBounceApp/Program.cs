@@ -37,7 +37,7 @@ namespace BipBounceApp
             using (var masteringVoice = new MasteringVoice(xaudio2))
             {
                 // Instantiate X3DAudio
-                var x3dAudio = new X3DAudio(Speakers.Stereo);
+                var x3dAudio = new X3DAudio(Speakers.FrontRight);
 
                 var emitter = new Emitter
                                   {
