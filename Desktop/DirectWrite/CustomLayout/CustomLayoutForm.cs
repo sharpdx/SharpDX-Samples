@@ -317,7 +317,7 @@ namespace CustomLayout
             try
             {
                 textFormat = new TextFormat(FactoryDWrite, fontName, null, FontWeight.Normal, SharpDX.DirectWrite.FontStyle.Normal, FontStretch.Normal, 14, localeName);
-                textFormat.ReadingDirection = readingDirection;
+                textFormat.SetReadingDirection(readingDirection);
             }
             catch (Exception ex)
             {

@@ -151,7 +151,9 @@ namespace ColorDrawingEffect
             FontText = "Client Drawing Effect Example!";
 
             // Initialize a TextFormat
-            CurrentTextFormat = new TextFormat(FactoryDWrite, FontFamilyName, FontSize) { TextAlignment = TextAlignment.Center, ParagraphAlignment = ParagraphAlignment.Center };
+            CurrentTextFormat = new TextFormat(FactoryDWrite, FontFamilyName, FontSize);
+            CurrentTextFormat.SetTextAlignment(TextAlignment.Center);
+            CurrentTextFormat.SetParagraphAlignment(ParagraphAlignment.Center);
 
             CurrentTextLayout = new TextLayout(FactoryDWrite, FontText, CurrentTextFormat, ClientRectangle.Width, ClientRectangle.Height);
 
@@ -188,8 +190,8 @@ namespace ColorDrawingEffect
             try
             {
                 RenderTarget2D.Resize(new Size2(ClientRectangle.Size.Width, ClientRectangle.Size.Height));
-                CurrentTextLayout.MaxWidth = ClientRectangle.Size.Width;
-                CurrentTextLayout.MaxHeight = ClientRectangle.Size.Height;
+                CurrentTextLayout.SetMaxWidth(ClientRectangle.Size.Width);
+                CurrentTextLayout.SetMaxHeight(ClientRectangle.Size.Height);
             }
             catch (Exception ex)
             {

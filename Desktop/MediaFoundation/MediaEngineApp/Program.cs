@@ -120,7 +120,7 @@ namespace MediaEngineApp
                     eventReadyToPlay.Set();
                     break;
                 case MediaEngineEvent.TimeUpdate:
-                    Console.Write(" {0}", TimeSpan.FromSeconds(mediaEngineEx.CurrentTime));
+                    Console.Write(" {0}", TimeSpan.FromSeconds(mediaEngineEx.GetCurrentTime()));
                     break;
                 case MediaEngineEvent.Error:
                 case MediaEngineEvent.Abort:
