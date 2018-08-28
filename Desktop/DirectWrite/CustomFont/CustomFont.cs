@@ -130,8 +130,8 @@ namespace CustomFont
             try
             {
                 RenderTarget2D.Resize(new Size2(renderControl.Size.Width, renderControl.Size.Height));
-                CurrentTextLayout.SetMaxWidth(renderControl.Size.Width);
-                CurrentTextLayout.SetMaxHeight(renderControl.Size.Height);
+                CurrentTextLayout.MaxWidth = renderControl.Size.Width;
+                CurrentTextLayout.MaxHeight = renderControl.Size.Height;
                 Refresh();
             }
             catch (Exception ex)
@@ -189,8 +189,8 @@ namespace CustomFont
 
                 // Initialize a TextFormat
                 CurrentTextFormat = new TextFormat(FactoryDWrite, FontFamilyName, CurrentFontCollection, FontWeight.Normal, FontStyle.Normal, FontStretch.Normal, 64);
-                CurrentTextFormat.SetTextAlignment(TextAlignment.Center);
-                CurrentTextFormat.SetParagraphAlignment(ParagraphAlignment.Center);
+                CurrentTextFormat.TextAlignment = TextAlignment.Center;
+                CurrentTextFormat.ParagraphAlignment = ParagraphAlignment.Center;
 
                 CurrentTextLayout = new TextLayout(FactoryDWrite, FontText, CurrentTextFormat, renderControl.ClientSize.Width, renderControl.ClientSize.Height);
             }

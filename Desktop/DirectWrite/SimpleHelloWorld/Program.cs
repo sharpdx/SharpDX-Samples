@@ -43,8 +43,8 @@ namespace SimpleHelloWorld
 
             // Initialize a TextFormat
             TextFormat = new TextFormat(FactoryDWrite, "Gabriola", 96);
-            TextFormat.SetTextAlignment(TextAlignment.Center);
-            TextFormat.SetParagraphAlignment(ParagraphAlignment.Center);
+            TextFormat.TextAlignment = TextAlignment.Center;
+            TextFormat.ParagraphAlignment = ParagraphAlignment.Center;
 
             RenderTarget2D.TextAntialiasMode = TextAntialiasMode.Cleartype;
 

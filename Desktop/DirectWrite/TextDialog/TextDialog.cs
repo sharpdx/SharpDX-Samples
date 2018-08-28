@@ -148,8 +148,8 @@ namespace TextDialog
 
                 // Initialize a TextFormat
                 CurrentTextFormat = new TextFormat(FactoryDWrite, FontFamilyName, FontSize);
-                CurrentTextFormat.SetTextAlignment(TextAlignment.Center);
-                CurrentTextFormat.SetParagraphAlignment(ParagraphAlignment.Center);
+                CurrentTextFormat.TextAlignment = TextAlignment.Center;
+                CurrentTextFormat.ParagraphAlignment = ParagraphAlignment.Center;
 
             CurrentTextLayout = new TextLayout(FactoryDWrite, FontText, CurrentTextFormat, renderControl.Width, renderControl.Height);
 
@@ -247,8 +247,8 @@ namespace TextDialog
             try
             {
                 RenderTarget2D.Resize(new Size2(renderControl.Size.Width, renderControl.Size.Height));
-                CurrentTextLayout.SetMaxWidth(renderControl.Size.Width);
-                CurrentTextLayout.SetMaxHeight(renderControl.Size.Height);
+                CurrentTextLayout.MaxWidth = renderControl.Size.Width;
+                CurrentTextLayout.MaxHeight = renderControl.Size.Height;
             }
             catch (Exception ex)
             {
