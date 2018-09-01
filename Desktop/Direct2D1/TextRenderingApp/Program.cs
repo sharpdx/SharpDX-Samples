@@ -36,7 +36,9 @@ namespace TextRenderingApp
             base.Initialize(demoConfiguration);
 
             // Initialize a TextFormat
-            TextFormat = new TextFormat(FactoryDWrite, "Calibri", 128) {TextAlignment = TextAlignment.Center, ParagraphAlignment = ParagraphAlignment.Center};
+            TextFormat = new TextFormat(FactoryDWrite, "Calibri", 128);
+            TextFormat.TextAlignment = TextAlignment.Center;
+            TextFormat.ParagraphAlignment = ParagraphAlignment.Center;
 
             RenderTarget2D.TextAntialiasMode = TextAntialiasMode.Cleartype;
 

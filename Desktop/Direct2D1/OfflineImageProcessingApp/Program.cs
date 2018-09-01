@@ -147,7 +147,8 @@
 
             // this is the trick to write D2D1 bitmap to WIC
             var imageEncoder = new wic.ImageEncoder(imagingFactory, d2dDevice);
-            imageEncoder.WriteFrame(d2dRenderTarget, bitmapFrameEncode, new wic.ImageParameters(d2PixelFormat, 96, 96, 0, 0, pixelWidth, pixelHeight));
+            var imageParameters = new wic.ImageParameters(d2PixelFormat, 96, 96, 0, 0, pixelWidth, pixelHeight);
+            imageEncoder.WriteFrame(d2dRenderTarget, bitmapFrameEncode, imageParameters);
 
             bitmapFrameEncode.Commit();
             encoder.Commit();

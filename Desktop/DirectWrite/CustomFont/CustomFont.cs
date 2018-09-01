@@ -188,7 +188,9 @@ namespace CustomFont
                 FontText = "SharpDX - This font was loaded from a resource";
 
                 // Initialize a TextFormat
-                CurrentTextFormat = new TextFormat(FactoryDWrite, FontFamilyName, CurrentFontCollection, FontWeight.Normal, FontStyle.Normal, FontStretch.Normal, 64) { TextAlignment = TextAlignment.Center, ParagraphAlignment = ParagraphAlignment.Center };
+                CurrentTextFormat = new TextFormat(FactoryDWrite, FontFamilyName, CurrentFontCollection, FontWeight.Normal, FontStyle.Normal, FontStretch.Normal, 64);
+                CurrentTextFormat.TextAlignment = TextAlignment.Center;
+                CurrentTextFormat.ParagraphAlignment = ParagraphAlignment.Center;
 
                 CurrentTextLayout = new TextLayout(FactoryDWrite, FontText, CurrentTextFormat, renderControl.ClientSize.Width, renderControl.ClientSize.Height);
             }

@@ -147,9 +147,11 @@ namespace TextDialog
                 }
 
                 // Initialize a TextFormat
-                CurrentTextFormat = new TextFormat(FactoryDWrite, FontFamilyName, FontSize) { TextAlignment = TextAlignment.Center, ParagraphAlignment = ParagraphAlignment.Center };
+                CurrentTextFormat = new TextFormat(FactoryDWrite, FontFamilyName, FontSize);
+                CurrentTextFormat.TextAlignment = TextAlignment.Center;
+                CurrentTextFormat.ParagraphAlignment = ParagraphAlignment.Center;
 
-                CurrentTextLayout = new TextLayout(FactoryDWrite, FontText, CurrentTextFormat, renderControl.Width, renderControl.Height);
+            CurrentTextLayout = new TextLayout(FactoryDWrite, FontText, CurrentTextFormat, renderControl.Width, renderControl.Height);
 
                 // Set a stylistic typography
                 var typo = new Typography(FactoryDWrite);

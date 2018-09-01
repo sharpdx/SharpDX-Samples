@@ -151,7 +151,9 @@ namespace ColorDrawingEffect
             FontText = "Client Drawing Effect Example!";
 
             // Initialize a TextFormat
-            CurrentTextFormat = new TextFormat(FactoryDWrite, FontFamilyName, FontSize) { TextAlignment = TextAlignment.Center, ParagraphAlignment = ParagraphAlignment.Center };
+            CurrentTextFormat = new TextFormat(FactoryDWrite, FontFamilyName, FontSize);
+            CurrentTextFormat.TextAlignment = TextAlignment.Center;
+            CurrentTextFormat.ParagraphAlignment = ParagraphAlignment.Center;
 
             CurrentTextLayout = new TextLayout(FactoryDWrite, FontText, CurrentTextFormat, ClientRectangle.Width, ClientRectangle.Height);
 
