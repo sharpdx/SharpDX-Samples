@@ -110,5 +110,20 @@ namespace CustomFont
             var index = Utilities.Read<int>(fontFileReferenceKey.Pointer);
             return _fontStreams[index];
         }
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _factory.UnregisterFontFileLoader(this);
+                _factory.UnregisterFontCollectionLoader(this);
+            }
+
+            base.Dispose(disposing);
+        }
     }
 }
