@@ -19,6 +19,7 @@
 // THE SOFTWARE.
 
 using System;
+using System.Collections.Concurrent;
 using System.Windows.Forms;
 
 using SharpDX.Multimedia;
@@ -32,6 +33,7 @@ namespace MouseTrackApp
     static class Program
     {
         private static TextBox textBox;
+        private static readonly ConcurrentDictionary<IntPtr, string> DeviceNameCache = new ConcurrentDictionary<IntPtr, string>();
 
         /// <summary>
         /// The main entry point for the application.
@@ -61,9 +63,29 @@ namespace MouseTrackApp
         /// <param name="rawArgs">The <see cref="SharpDX.RawInput.RawInputEventArgs"/> instance containing the event data.</param>
         static void UpdateMouseText(RawInputEventArgs rawArgs)
         {
+            const string sep = "        ";
             var args = (MouseInputEventArgs)rawArgs;
+            var devName = GetDeviceName(args.Device);
+            textBox.AppendText(
+                $"Mouse: {devName} {sep} Coords: {args.X},{args.Y} {sep} Buttons: {args.ButtonFlags} {sep} State: {args.Mode} {sep} Wheel: {args.WheelDelta}\r\n");
+        }
 
-            textBox.AppendText(string.Format("(x,y):({0},{1}) Buttons: {2} State: {3} Wheel: {4}\r\n", args.X, args.Y, args.ButtonFlags, args.Mode, args.WheelDelta));            
+        static string GetDeviceName(IntPtr devPtr)
+        {
+            if (DeviceNameCache.ContainsKey(devPtr))
+            {
+                return DeviceNameCache[devPtr];
+            }
+            var devices = Device.GetDevices();
+            var deviceName = devPtr.ToString();
+            foreach (var dev in devices)
+            {
+                if (dev.Handle != devPtr) continue;
+                deviceName = dev.DeviceName.Split('#')[1];
+                break;
+            }
+            DeviceNameCache.TryAdd(devPtr, deviceName);
+            return deviceName;
         }
 
         /// <summary>
@@ -72,8 +94,10 @@ namespace MouseTrackApp
         /// <param name="rawArgs">The <see cref="SharpDX.RawInput.RawInputEventArgs"/> instance containing the event data.</param>
         static void UpdateKeyboardText(RawInputEventArgs rawArgs)
         {
+            const string sep = "        ";
             var args = (KeyboardInputEventArgs)rawArgs;
-            textBox.AppendText(string.Format("Key: {0} State: {1} ScanCodeFlags: {2}\r\n", args.Key, args.State, args.ScanCodeFlags));
+            var devName = GetDeviceName(args.Device);
+            textBox.AppendText($"Keyboard: {devName} {sep} Key: {args.Key} ({(int)args.Key}) {sep} State: {args.State} {sep} ScanCodeFlags: {args.ScanCodeFlags}\r\n");
         }
 
         /// <summary>
